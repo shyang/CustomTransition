@@ -31,18 +31,31 @@
     UIView *target = [to.view viewWithTag:10000];
     NSAssert(source && target, @"no view with tag 10000 found in from/to view controllers!");
 
-    CGRect savedFrame = source.frame;
-    [UIView animateWithDuration:1 animations:^{
-        NSLog(@"%@ -> %@", NSStringFromCGRect(source.frame), NSStringFromCGRect(target.frame));
-        source.frame = target.frame;
-    } completion:^(BOOL finished) {
-        // revert
-        source.frame = savedFrame;
+    UIView *container = transitionContext.containerView;
+    UIView *mask = [[UIView alloc] initWithFrame:container.bounds];
+    mask.alpha = 0;
+    mask.backgroundColor = [UIColor whiteColor];
+    [from.view addSubview:mask];
+    [from.view bringSubviewToFront:source]; // 多层级需修改
 
-        // end
-        target.tag = 0; // clear
-        [transitionContext.containerView addSubview:to.view];
-        [transitionContext completeTransition:YES];
+    [UIView animateWithDuration:0.5 animations:^{
+        mask.alpha = 1;
+    } completion:^(BOOL finished) {
+
+        CGRect savedFrame = source.frame;
+        [UIView animateWithDuration:1 animations:^{
+            NSLog(@"%@ -> %@", NSStringFromCGRect(source.frame), NSStringFromCGRect(target.frame));
+            source.frame = target.frame;
+        } completion:^(BOOL finished) {
+            // revert
+            source.frame = savedFrame;
+
+            // end
+            [mask removeFromSuperview];
+            target.tag = 0; // clear
+            [transitionContext.containerView addSubview:to.view];
+            [transitionContext completeTransition:YES];
+        }];
     }];
 }
 
