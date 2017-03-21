@@ -7,6 +7,7 @@
 //
 
 #import "BeginViewController.h"
+#import "EndViewController.h"
 
 @interface BeginViewController ()
 
@@ -21,6 +22,14 @@
     imageView.frame = self.view.bounds;
     imageView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     [self.view addSubview:imageView];
+
+    [self.view addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(onViewTapped:)]];
+}
+
+- (void)onViewTapped:(UIGestureRecognizer *)gesture {
+    NSLog(@"%@", NSStringFromCGPoint([gesture locationInView:gesture.view]));
+
+    [self.navigationController pushViewController:[[EndViewController alloc] init] animated:YES];
 }
 
 @end

@@ -21,6 +21,14 @@
     imageView.frame = self.view.bounds;
     imageView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     [self.view addSubview:imageView];
+
+    [self.view addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(onViewTapped:)]];
+}
+
+- (void)onViewTapped:(UIGestureRecognizer *)gesture {
+    NSLog(@"%@", NSStringFromCGPoint([gesture locationInView:gesture.view]));
+
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 @end
