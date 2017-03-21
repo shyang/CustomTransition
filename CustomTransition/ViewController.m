@@ -8,6 +8,7 @@
 
 #import "ViewController.h"
 #import "BeginViewController.h"
+#import "MagicAnimator.h"
 
 @interface ViewController ()
 
@@ -18,8 +19,14 @@
 - (instancetype)initWithCoder:(NSCoder *)aDecoder {
     if (self = [super initWithRootViewController:[[BeginViewController alloc] init]]) {
         self.navigationBarHidden = YES;
+        self.delegate = self;
     }
     return self;
+}
+
+- (id<UIViewControllerAnimatedTransitioning>)navigationController:(UINavigationController *)navigationController animationControllerForOperation:(UINavigationControllerOperation)operation fromViewController:(UIViewController *)fromVC toViewController:(UIViewController *)toVC {
+    MagicAnimator *animator = [[MagicAnimator alloc] init];
+    return animator;
 }
 
 @end

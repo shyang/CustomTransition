@@ -1,5 +1,5 @@
 //
-//  ViewController.h
+//  MagicAnimator.h
 //  CustomTransition
 //
 //  Created by shaohua on 21/03/2017.
@@ -8,8 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ViewController : UINavigationController <UINavigationControllerDelegate>
-
+@interface MagicAnimator : NSObject <UIViewControllerAnimatedTransitioning>
 
 @end
-

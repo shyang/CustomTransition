@@ -17,6 +17,7 @@
 		ADF7FFC61E80FB4200D4A28E /* 269.jpg in Resources */ = {isa = PBXBuildFile; fileRef = ADF7FFC41E80FB4200D4A28E /* 269.jpg */; };
 		ADF7FFC91E80FB5E00D4A28E /* EndViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ADF7FFC81E80FB5E00D4A28E /* EndViewController.m */; };
 		ADF7FFCC1E80FBD100D4A28E /* BeginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ADF7FFCB1E80FBD100D4A28E /* BeginViewController.m */; };
+		ADF7FFCF1E81011C00D4A28E /* MagicAnimator.m in Sources */ = {isa = PBXBuildFile; fileRef = ADF7FFCE1E81011C00D4A28E /* MagicAnimator.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -36,6 +37,8 @@
 		ADF7FFC81E80FB5E00D4A28E /* EndViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EndViewController.m; sourceTree = "<group>"; };
 		ADF7FFCA1E80FBD100D4A28E /* BeginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BeginViewController.h; sourceTree = "<group>"; };
 		ADF7FFCB1E80FBD100D4A28E /* BeginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BeginViewController.m; sourceTree = "<group>"; };
+		ADF7FFCD1E81011C00D4A28E /* MagicAnimator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MagicAnimator.h; sourceTree = "<group>"; };
+		ADF7FFCE1E81011C00D4A28E /* MagicAnimator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MagicAnimator.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -76,6 +79,8 @@
 				ADF7FFCB1E80FBD100D4A28E /* BeginViewController.m */,
 				ADF7FFC71E80FB5E00D4A28E /* EndViewController.h */,
 				ADF7FFC81E80FB5E00D4A28E /* EndViewController.m */,
+				ADF7FFCD1E81011C00D4A28E /* MagicAnimator.h */,
+				ADF7FFCE1E81011C00D4A28E /* MagicAnimator.m */,
 				ADF7FFC31E80FB4200D4A28E /* 203.jpg */,
 				ADF7FFC41E80FB4200D4A28E /* 269.jpg */,
 				ADF7FFB51E80FB2100D4A28E /* Main.storyboard */,
@@ -170,6 +175,7 @@
 			files = (
 				ADF7FFC91E80FB5E00D4A28E /* EndViewController.m in Sources */,
 				ADF7FFB41E80FB2100D4A28E /* ViewController.m in Sources */,
+				ADF7FFCF1E81011C00D4A28E /* MagicAnimator.m in Sources */,
 				ADF7FFB11E80FB2100D4A28E /* AppDelegate.m in Sources */,
 				ADF7FFAE1E80FB2100D4A28E /* main.m in Sources */,
 				ADF7FFCC1E80FBD100D4A28E /* BeginViewController.m in Sources */,
