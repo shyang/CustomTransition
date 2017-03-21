@@ -17,17 +17,24 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 
+    self.view.backgroundColor = [UIColor greenColor];
+
     UIImageView *imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"269.jpg"]];
     imageView.frame = self.view.bounds;
     imageView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-    [self.view addSubview:imageView];
+    //[self.view addSubview:imageView];
 
-    [self.view addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(onViewTapped:)]];
+    UIImageView *post = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"post_1"]];
+    post.frame = CGRectMake(12, 155, 88, 115);
+    post.userInteractionEnabled = YES;
+    post.tag = 10000; // target for Animator
+    [self.view addSubview:post];
+    [post addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(onViewTapped:)]];
 }
 
 - (void)onViewTapped:(UIGestureRecognizer *)gesture {
     NSLog(@"%@", NSStringFromCGPoint([gesture locationInView:gesture.view]));
-
+    gesture.view.tag = 10000; // source for Animator
     [self.navigationController popViewControllerAnimated:YES];
 }
 

@@ -18,6 +18,9 @@
 		ADF7FFC91E80FB5E00D4A28E /* EndViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ADF7FFC81E80FB5E00D4A28E /* EndViewController.m */; };
 		ADF7FFCC1E80FBD100D4A28E /* BeginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ADF7FFCB1E80FBD100D4A28E /* BeginViewController.m */; };
 		ADF7FFCF1E81011C00D4A28E /* MagicAnimator.m in Sources */ = {isa = PBXBuildFile; fileRef = ADF7FFCE1E81011C00D4A28E /* MagicAnimator.m */; };
+		ADF7FFD31E810B1100D4A28E /* post_1.png in Resources */ = {isa = PBXBuildFile; fileRef = ADF7FFD01E810B1100D4A28E /* post_1.png */; };
+		ADF7FFD41E810B1100D4A28E /* post_2.png in Resources */ = {isa = PBXBuildFile; fileRef = ADF7FFD11E810B1100D4A28E /* post_2.png */; };
+		ADF7FFD51E810B1100D4A28E /* post_3.png in Resources */ = {isa = PBXBuildFile; fileRef = ADF7FFD21E810B1100D4A28E /* post_3.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -39,6 +42,9 @@
 		ADF7FFCB1E80FBD100D4A28E /* BeginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BeginViewController.m; sourceTree = "<group>"; };
 		ADF7FFCD1E81011C00D4A28E /* MagicAnimator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MagicAnimator.h; sourceTree = "<group>"; };
 		ADF7FFCE1E81011C00D4A28E /* MagicAnimator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MagicAnimator.m; sourceTree = "<group>"; };
+		ADF7FFD01E810B1100D4A28E /* post_1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = post_1.png; sourceTree = "<group>"; };
+		ADF7FFD11E810B1100D4A28E /* post_2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = post_2.png; sourceTree = "<group>"; };
+		ADF7FFD21E810B1100D4A28E /* post_3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = post_3.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -81,6 +87,9 @@
 				ADF7FFC81E80FB5E00D4A28E /* EndViewController.m */,
 				ADF7FFCD1E81011C00D4A28E /* MagicAnimator.h */,
 				ADF7FFCE1E81011C00D4A28E /* MagicAnimator.m */,
+				ADF7FFD01E810B1100D4A28E /* post_1.png */,
+				ADF7FFD11E810B1100D4A28E /* post_2.png */,
+				ADF7FFD21E810B1100D4A28E /* post_3.png */,
 				ADF7FFC31E80FB4200D4A28E /* 203.jpg */,
 				ADF7FFC41E80FB4200D4A28E /* 269.jpg */,
 				ADF7FFB51E80FB2100D4A28E /* Main.storyboard */,
@@ -162,7 +171,10 @@
 				ADF7FFC61E80FB4200D4A28E /* 269.jpg in Resources */,
 				ADF7FFB91E80FB2100D4A28E /* Assets.xcassets in Resources */,
 				ADF7FFB71E80FB2100D4A28E /* Main.storyboard in Resources */,
+				ADF7FFD41E810B1100D4A28E /* post_2.png in Resources */,
+				ADF7FFD51E810B1100D4A28E /* post_3.png in Resources */,
 				ADF7FFC51E80FB4200D4A28E /* 203.jpg in Resources */,
+				ADF7FFD31E810B1100D4A28E /* post_1.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

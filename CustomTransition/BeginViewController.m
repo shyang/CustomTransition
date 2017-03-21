@@ -18,16 +18,27 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 
+    self.view.backgroundColor = [UIColor blueColor];
+
     UIImageView *imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"203.jpg"]];
     imageView.frame = self.view.bounds;
-    imageView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-    [self.view addSubview:imageView];
+    //[self.view addSubview:imageView];
 
-    [self.view addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(onViewTapped:)]];
+    // 加入三个需被操作的海报图片，作为演示只适配了 iPhone 5 的绝对定位：
+    for (int i = 0; i < 3; ++i) {
+        UIImageView *post = [[UIImageView alloc] initWithImage:[UIImage imageNamed:[NSString stringWithFormat:@"post_%d", i + 1]]];
+        post.frame = CGRectMake(12 + 96 * i, 273, 88, 115);
+        post.userInteractionEnabled = YES;
+        [self.view addSubview:post];
+        [post addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(onViewTapped:)]];
+    }
 }
 
 - (void)onViewTapped:(UIGestureRecognizer *)gesture {
     NSLog(@"%@", NSStringFromCGPoint([gesture locationInView:gesture.view]));
+
+    // Animator 需要知道哪个控件触发了页面跳转事件，此处使用 tag 来标记
+    gesture.view.tag = 10000; // set
 
     [self.navigationController pushViewController:[[EndViewController alloc] init] animated:YES];
 }
