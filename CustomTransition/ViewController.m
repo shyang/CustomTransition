@@ -7,6 +7,7 @@
 //
 
 #import "ViewController.h"
+#import "BeginViewController.h"
 
 @interface ViewController ()
 
@@ -14,16 +15,11 @@
 
 @implementation ViewController
 
-- (void)viewDidLoad {
-    [super viewDidLoad];
-    // Do any additional setup after loading the view, typically from a nib.
+- (instancetype)initWithCoder:(NSCoder *)aDecoder {
+    if (self = [super initWithRootViewController:[[BeginViewController alloc] init]]) {
+        self.navigationBarHidden = YES;
+    }
+    return self;
 }
-
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
 
 @end
