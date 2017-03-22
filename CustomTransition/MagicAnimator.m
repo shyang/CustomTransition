@@ -38,10 +38,12 @@
     [from.view addSubview:mask];
     [from.view bringSubviewToFront:source]; // 多层级需修改
 
+    // 动画1
     [UIView animateWithDuration:0.5 animations:^{
         mask.alpha = 1;
     } completion:^(BOOL finished) {
 
+        // 动画2
         CGRect savedFrame = source.frame;
         [UIView animateWithDuration:1 animations:^{
             NSLog(@"%@ -> %@", NSStringFromCGRect(source.frame), NSStringFromCGRect(target.frame));

@@ -9,6 +9,7 @@
 #import "ViewController.h"
 #import "BeginViewController.h"
 #import "MagicAnimator.h"
+#import "HoleAnimationViewController.h"
 
 @interface ViewController ()
 
@@ -17,7 +18,7 @@
 @implementation ViewController
 
 - (instancetype)initWithCoder:(NSCoder *)aDecoder {
-    if (self = [super initWithRootViewController:[[BeginViewController alloc] init]]) {
+    if (self = [super initWithRootViewController:[[HoleAnimationViewController alloc] init]]) {
         self.navigationBarHidden = YES;
         self.delegate = self;
     }
