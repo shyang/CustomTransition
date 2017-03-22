@@ -64,9 +64,7 @@
 }
 
 - (void)animationDidStop:(CAAnimation *)anim finished:(BOOL)flag {
-    [self.layer.sublayers enumerateObjectsUsingBlock:^(CALayer *obj, NSUInteger idx, BOOL *stop) {
-        [obj removeFromSuperlayer];
-    }];
+    [self removeFromSuperview];
 
     if (_doneBlock) {
         _doneBlock(flag);
