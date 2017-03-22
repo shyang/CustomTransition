@@ -11,10 +11,15 @@
 #import "ShadowAnimationView.h"
 #import "UIViewController+MagicView.h"
 
+static const CGFloat kFadeTime = 0.3;
+static const CGFloat kShadowTime = 0.1;
+static const CGFloat kMoveTime = 0.7;
+static const CGFloat kHoleExpandTime = 0.5;
+
 @implementation MagicAnimator
 
 - (NSTimeInterval)transitionDuration:(id<UIViewControllerContextTransitioning>)transitionContext {
-    return 0.3 + 0.1 + 0.5 + 0.1 + 1;
+    return kFadeTime + kShadowTime * 2 + kMoveTime + kHoleExpandTime;
 }
 
 - (void)animateTransition:(id<UIViewControllerContextTransitioning>)transitionContext {
@@ -23,11 +28,11 @@
 
     /*
      主要有 5 个动画需要实现：
-     1. 全屏不透明蒙板淡入
-     2. 海报四周出现阴影（升起的视觉效果）
-     3. 海报移动
-     4. 海报四周阴影消失（下落的视觉效果）
-     5. 全屏不透明蒙板以海报为中心，涟漪式消除
+     1. 全屏不透明蒙板淡入                      kFadeTime
+     2. 海报四周出现阴影（升起的视觉效果）      kShadowTime
+     3. 海报移动                                kMoveTime
+     4. 海报四周阴影消失（下落的视觉效果）      kShadowTime
+     5. 全屏不透明蒙板以海报为中心，涟漪式消除  kHoleExpandTime
      
      
      注1: Animator 需要插入各种遮罩，对被动画的 view 中的层级有假设，若嵌套层次超过一层，需要相应的修改。
@@ -47,17 +52,18 @@
         [from.view addSubview:mask];
         [from.view bringSubviewToFront:source]; // ^注1
 
-        [UIView animateWithDuration:.3 animations:^{
+        [UIView animateWithDuration:kFadeTime animations:^{
             mask.alpha = 1;
         } completion:^(BOOL finished) {
             // 动画2 升起
             ShadowAnimationView *shadow = [[ShadowAnimationView alloc] initWithFrame:source.frame];
+            shadow.duration = kShadowTime;
             [from.view insertSubview:shadow belowSubview:source];
             [shadow startAnimationWithCompletion:^(BOOL finished) {
 
                 // 动画3 移动
                 CGRect savedFrame = source.frame;
-                [UIView animateWithDuration:0.5 animations:^{
+                [UIView animateWithDuration:kMoveTime animations:^{
                     source.frame = target.frame;
                     shadow.frame = target.frame;
                 } completion:^(BOOL finished) {
@@ -73,6 +79,7 @@
                         // 动画5 涟漪
                         [container addSubview:to.view];
                         HoleExpandingView *hole = [[HoleExpandingView alloc] initWithFrame:container.bounds];
+                        hole.duration = kHoleExpandTime;
                         hole.holeCenter = target.center;
                         [to.view addSubview:hole];
                         [to.view bringSubviewToFront:target]; // ^注1
@@ -89,6 +96,7 @@
     } else if (_operation == UINavigationControllerOperationPop) {
         // 动画5 涟漪
         HoleExpandingView *hole = [[HoleExpandingView alloc] initWithFrame:container.bounds];
+        hole.duration = kHoleExpandTime;
         hole.holeCenter = source.center;
         hole.reverse = YES;
         [from.view addSubview:hole];
@@ -102,12 +110,13 @@
 
             // 动画2 升起
             ShadowAnimationView *shadow = [[ShadowAnimationView alloc] initWithFrame:source.frame];
+            shadow.duration = kShadowTime;
             [from.view insertSubview:shadow belowSubview:source];
             [shadow startAnimationWithCompletion:^(BOOL finished) {
 
                 // 动画3 移动
                 CGRect savedFrame = source.frame;
-                [UIView animateWithDuration:.5 animations:^{
+                [UIView animateWithDuration:kMoveTime animations:^{
                     source.frame = target.frame;
                     shadow.frame = target.frame;
                 } completion:^(BOOL finished) {
@@ -123,7 +132,7 @@
                         [to.view addSubview:mask];
                         [to.view bringSubviewToFront:target];
                         [container addSubview:to.view];
-                        [UIView animateWithDuration:.3 animations:^{
+                        [UIView animateWithDuration:kFadeTime animations:^{
                             mask.alpha = 0;
                         } completion:^(BOOL finished) {
                             [mask removeFromSuperview];
