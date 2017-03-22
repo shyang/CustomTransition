@@ -1,5 +1,5 @@
 //
-//  HoleAnimationViewController.m
+//  HoleExpandingViewController.m
 //  CustomTransition
 //
 //  Created by shaohua on 21/03/2017.
@@ -7,23 +7,24 @@
 //
 
 
-#import "HoleAnimationViewController.h"
+#import "HoleExpandingViewController.h"
 #import "HoleExpandingView.h"
 
-@interface HoleAnimationViewController ()
+@interface HoleExpandingViewController ()
 
 @end
 
-@implementation HoleAnimationViewController
+@implementation HoleExpandingViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-    self.view.backgroundColor = [UIColor greenColor];
+    UIImageView *imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"203.jpg"]];
+    imageView.frame = self.view.bounds;
+    [self.view addSubview:imageView];
 
     HoleExpandingView *mask = [[HoleExpandingView alloc] initWithFrame:self.view.bounds];
-    mask.holeCenter = CGPointMake(0, 0);
-    mask.holeRadius = 160;
+    mask.duration = 2;
     [self.view addSubview:mask];
     [mask startAnimationWithCompletion:nil];
 }

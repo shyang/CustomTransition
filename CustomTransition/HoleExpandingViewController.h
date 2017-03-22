@@ -1,5 +1,5 @@
 //
-//  HoleAnimationViewController.h
+//  HoleExpandingViewController.h
 //  CustomTransition
 //
 //  Created by shaohua on 21/03/2017.
@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface HoleAnimationViewController : UIViewController
+@interface HoleExpandingViewController : UIViewController
 
 @end

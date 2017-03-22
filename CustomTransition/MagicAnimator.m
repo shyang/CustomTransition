@@ -149,8 +149,4 @@ static const CGFloat kHoleExpandTime = 0.5;
     }
 }
 
-- (void)animationEnded:(BOOL)transitionCompleted {
-    NSLog(@"done");
-}
-
 @end

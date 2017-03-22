@@ -1,19 +1,19 @@
 //
-//  ShadowAnimationViewController.m
+//  ShadowOffViewController.m
 //  CustomTransition
 //
 //  Created by shaohua on 22/03/2017.
 //  Copyright © 2017 syang. All rights reserved.
 //
 
-#import "ShadowAnimationViewController.h"
+#import "ShadowOffViewController.h"
 #import "ShadowAnimationView.h"
 
-@interface ShadowAnimationViewController ()
+@interface ShadowOffViewController ()
 
 @end
 
-@implementation ShadowAnimationViewController
+@implementation ShadowOffViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -22,13 +22,10 @@
 
     ShadowAnimationView *mask = [[ShadowAnimationView alloc] initWithFrame:CGRectMake(100, 100, 40, 60)];
     mask.backgroundColor = [UIColor redColor];
+    mask.reverse = YES;
+    mask.duration = 2;
     [self.view addSubview:mask];
-    [mask startAnimationWithCompletion:^(BOOL finished) {
-        mask.reverse = YES;
-        [mask startAnimationWithCompletion:nil];
-
-    }];
-
+    [mask startAnimationWithCompletion:nil];
 }
 
 @end

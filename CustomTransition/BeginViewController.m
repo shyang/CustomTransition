@@ -38,8 +38,6 @@
 }
 
 - (void)onViewTapped:(UIGestureRecognizer *)gesture {
-    NSLog(@"%@", NSStringFromCGPoint([gesture locationInView:gesture.view]));
-
     // Animator 需要知道哪个控件触发了页面跳转事件，此处使用 tag 来标记
     self.magicView = gesture.view;
 
