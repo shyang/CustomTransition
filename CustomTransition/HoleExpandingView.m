@@ -57,9 +57,11 @@
     if (_reverse) {
         anim.fromValue = (__bridge id)toPath.CGPath;
         anim.toValue = (__bridge id)fromPath.CGPath;
+        layer.path = fromPath.CGPath;
     } else {
         anim.fromValue = (__bridge id)fromPath.CGPath;
         anim.toValue = (__bridge id)toPath.CGPath;
+        layer.path = toPath.CGPath;
     }
     anim.delegate = self;
     anim.duration = _duration;
