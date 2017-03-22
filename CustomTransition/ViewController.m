@@ -20,7 +20,6 @@
 
 - (instancetype)initWithCoder:(NSCoder *)aDecoder {
     if (self = [super initWithRootViewController:[[BeginViewController alloc] init]]) {
-        self.navigationBarHidden = YES;
         self.delegate = self;
     }
     return self;

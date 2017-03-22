@@ -18,11 +18,13 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-    self.view.backgroundColor = [UIColor blueColor];
+    self.title = @"From";
+
+    self.view.backgroundColor = [UIColor lightGrayColor];
 
     UIImageView *imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"203.jpg"]];
     imageView.frame = self.view.bounds;
-    [self.view addSubview:imageView];
+    // [self.view addSubview:imageView];
 
     // 加入三个需被操作的海报图片，作为演示只适配了 iPhone 5 的绝对定位：
     for (int i = 0; i < 3; ++i) {

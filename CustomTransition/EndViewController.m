@@ -17,12 +17,14 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-    self.view.backgroundColor = [UIColor greenColor];
+    self.title = @"To";
+
+    self.view.backgroundColor = [UIColor lightGrayColor];
 
     UIImageView *imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"269.jpg"]];
     imageView.frame = self.view.bounds;
     imageView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-    [self.view addSubview:imageView];
+    // [self.view addSubview:imageView];
 
     UIImageView *post = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"post_1"]];
     post.frame = CGRectMake(12, 155, 88, 115);

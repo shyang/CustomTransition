@@ -13,7 +13,7 @@
 @implementation MagicAnimator
 
 - (NSTimeInterval)transitionDuration:(id<UIViewControllerContextTransitioning>)transitionContext {
-    return 5;
+    return 0.3 + 0.1 + 0.5 + 0.1 + 1;
 }
 
 - (void)animateTransition:(id<UIViewControllerContextTransitioning>)transitionContext {
@@ -56,7 +56,7 @@
 
                 // 动画3 移动
                 CGRect savedFrame = source.frame;
-                [UIView animateWithDuration:1 animations:^{
+                [UIView animateWithDuration:0.5 animations:^{
                     source.frame = target.frame;
                     shadow.frame = target.frame;
                 } completion:^(BOOL finished) {
@@ -107,7 +107,7 @@
 
                 // 动画3 移动
                 CGRect savedFrame = source.frame;
-                [UIView animateWithDuration:1 animations:^{
+                [UIView animateWithDuration:.5 animations:^{
                     source.frame = target.frame;
                     shadow.frame = target.frame;
                 } completion:^(BOOL finished) {
@@ -139,6 +139,10 @@
     } else {
         NSAssert(NO, @"Set the operation first!");
     }
+}
+
+- (void)animationEnded:(BOOL)transitionCompleted {
+    NSLog(@"done");
 }
 
 @end
