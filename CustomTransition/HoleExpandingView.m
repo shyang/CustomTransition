@@ -54,18 +54,21 @@
     [toPath appendPath:rect];
 
     CABasicAnimation *anim = [CABasicAnimation animationWithKeyPath:@"path"];
-    anim.fromValue = (__bridge id)fromPath.CGPath;
-    anim.toValue = (__bridge id)toPath.CGPath;
+    if (_reverse) {
+        anim.fromValue = (__bridge id)toPath.CGPath;
+        anim.toValue = (__bridge id)fromPath.CGPath;
+    } else {
+        anim.fromValue = (__bridge id)fromPath.CGPath;
+        anim.toValue = (__bridge id)toPath.CGPath;
+    }
     anim.delegate = self;
     anim.duration = _duration;
 
-    [layer addAnimation:anim forKey:@"expand"];
+    [layer addAnimation:anim forKey:@"expand_or_shrink"];
     [self.layer addSublayer:layer];
 }
 
 - (void)animationDidStop:(CAAnimation *)anim finished:(BOOL)flag {
-    [self removeFromSuperview];
-
     if (_doneBlock) {
         _doneBlock(flag);
     }

@@ -10,4 +10,7 @@
 
 @interface MagicAnimator : NSObject <UIViewControllerAnimatedTransitioning>
 
+// 动画根据 push、pop 表现不同，需要传入
+@property (nonatomic) UINavigationControllerOperation operation;
+
 @end

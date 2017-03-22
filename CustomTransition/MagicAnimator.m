@@ -10,9 +10,11 @@
 #import "HoleExpandingView.h"
 
 @implementation MagicAnimator
-
+- (void)dealloc {
+    NSLog(@"dealloc");
+}
 - (NSTimeInterval)transitionDuration:(id<UIViewControllerContextTransitioning>)transitionContext {
-    return 3;
+    return 5;
 }
 
 - (void)animateTransition:(id<UIViewControllerContextTransitioning>)transitionContext {
@@ -36,40 +38,84 @@
     NSAssert(source && target, @"no view with tag 10000 found in from/to view controllers!");
 
     UIView *container = transitionContext.containerView;
-    UIView *mask = [[UIView alloc] initWithFrame:container.bounds];
-    mask.alpha = 0;
-    mask.backgroundColor = [UIColor whiteColor];
-    [from.view addSubview:mask];
-    [from.view bringSubviewToFront:source]; // ^注1
 
-    // 动画1
-    [UIView animateWithDuration:0.5 animations:^{
-        mask.alpha = 1;
-    } completion:^(BOOL finished) {
+    if (_operation == UINavigationControllerOperationPush) {
+        // 动画1
+        UIView *mask = [[UIView alloc] initWithFrame:container.bounds];
+        mask.alpha = 0;
+        mask.backgroundColor = [UIColor whiteColor];
+        [from.view addSubview:mask];
+        [from.view bringSubviewToFront:source]; // ^注1
 
-        // 动画2
-        CGRect savedFrame = source.frame;
-        [UIView animateWithDuration:1 animations:^{
-            source.frame = target.frame;
+        [UIView animateWithDuration:0.5 animations:^{
+            mask.alpha = 1;
         } completion:^(BOOL finished) {
-            // revert
-            source.frame = savedFrame;
 
-            // 动画5
-            [mask removeFromSuperview];
-            [container addSubview:to.view];
-            HoleExpandingView *hole = [[HoleExpandingView alloc] initWithFrame:container.bounds];
-            hole.holeCenter = target.center;
-            [to.view addSubview:hole];
-            [to.view bringSubviewToFront:target]; // ^注1
+            // 动画2
+            CGRect savedFrame = source.frame;
+            [UIView animateWithDuration:1 animations:^{
+                source.frame = target.frame;
+            } completion:^(BOOL finished) {
+                // revert
+                source.frame = savedFrame;
+                [mask removeFromSuperview];
 
-            [hole startAnimationWithCompletion:^(BOOL finished) {
-                // end
-                target.tag = 0; // clear
-                [transitionContext completeTransition:YES];
+                // 动画5
+                [container addSubview:to.view];
+                HoleExpandingView *hole = [[HoleExpandingView alloc] initWithFrame:container.bounds];
+                hole.holeCenter = target.center;
+                [to.view addSubview:hole];
+                [to.view bringSubviewToFront:target]; // ^注1
+
+                [hole startAnimationWithCompletion:^(BOOL finished) {
+                    // end
+                    [hole removeFromSuperview];
+                    target.tag = 0; // clear
+                    [transitionContext completeTransition:YES];
+                }];
             }];
         }];
-    }];
+    } else if (_operation == UINavigationControllerOperationPop) {
+        // 动画5
+        HoleExpandingView *hole = [[HoleExpandingView alloc] initWithFrame:container.bounds];
+        hole.holeCenter = source.center;
+        hole.reverse = YES;
+        [from.view addSubview:hole];
+        [from.view bringSubviewToFront:source]; // ^注1
+
+        [hole startAnimationWithCompletion:^(BOOL finished) {
+            [hole removeFromSuperview];
+            // 插入 mask
+            UIView *mask = [[UIView alloc] initWithFrame:container.bounds];
+            mask.backgroundColor = [UIColor whiteColor];
+            [from.view insertSubview:mask belowSubview:source]; // ^注1
+
+            // 动画2
+            CGRect savedFrame = source.frame;
+            [UIView animateWithDuration:1 animations:^{
+                source.frame = target.frame;
+            } completion:^(BOOL finished) {
+                // revert
+                source.frame = savedFrame;
+
+                // 动画1
+                [to.view addSubview:mask];
+                [to.view bringSubviewToFront:target];
+                [container addSubview:to.view];
+                [UIView animateWithDuration:.5 animations:^{
+                    mask.alpha = 0;
+                } completion:^(BOOL finished) {
+                    [mask removeFromSuperview];
+
+                    // end
+                    target.tag = 0; // clear
+                    [transitionContext completeTransition:YES];
+                }];
+            }];
+        }];
+    } else {
+        NSAssert(NO, @"Set the operation first!");
+    }
 }
 
 @end

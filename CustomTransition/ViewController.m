@@ -28,6 +28,7 @@
 - (id<UIViewControllerAnimatedTransitioning>)navigationController:(UINavigationController *)navigationController animationControllerForOperation:(UINavigationControllerOperation)operation fromViewController:(UIViewController *)fromVC toViewController:(UIViewController *)toVC {
     // 可根据 from、to、operation 等进行过滤
     MagicAnimator *animator = [[MagicAnimator alloc] init];
+    animator.operation = operation;
     return animator;
 }
 
