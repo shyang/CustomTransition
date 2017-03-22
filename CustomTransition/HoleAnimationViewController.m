@@ -25,7 +25,7 @@
     mask.holeCenter = CGPointMake(0, 0);
     mask.holeRadius = 160;
     [self.view addSubview:mask];
-    [mask startAnimation];
+    [mask startAnimationWithCompletion:nil];
 }
 
 @end

@@ -10,6 +10,12 @@
 
 #import "HoleExpandingView.h"
 
+@interface HoleExpandingView () <CAAnimationDelegate>
+
+@property (nonatomic, copy) void (^doneBlock)(BOOL finished);
+
+@end
+
 @implementation HoleExpandingView
 
 - (instancetype)initWithFrame:(CGRect)frame {
@@ -22,7 +28,9 @@
     return self;
 }
 
-- (void)startAnimation {
+- (void)startAnimationWithCompletion:(void (^)(BOOL))completion {
+    _doneBlock = completion;
+
     CAShapeLayer *layer = [CAShapeLayer layer];
     layer.frame = self.bounds;
     layer.fillRule = kCAFillRuleEvenOdd;
@@ -59,6 +67,10 @@
     [self.layer.sublayers enumerateObjectsUsingBlock:^(CALayer *obj, NSUInteger idx, BOOL *stop) {
         [obj removeFromSuperlayer];
     }];
+
+    if (_doneBlock) {
+        _doneBlock(flag);
+    }
 }
 
 @end

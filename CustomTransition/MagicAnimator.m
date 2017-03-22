@@ -7,6 +7,7 @@
 //
 
 #import "MagicAnimator.h"
+#import "HoleExpandingView.h"
 
 @implementation MagicAnimator
 
@@ -52,11 +53,19 @@
             // revert
             source.frame = savedFrame;
 
-            // end
+            // 动画5
             [mask removeFromSuperview];
-            target.tag = 0; // clear
-            [transitionContext.containerView addSubview:to.view];
-            [transitionContext completeTransition:YES];
+            [container addSubview:to.view];
+            HoleExpandingView *hole = [[HoleExpandingView alloc] initWithFrame:container.bounds];
+            hole.holeCenter = target.center;
+            [container addSubview:hole];
+
+            [hole startAnimationWithCompletion:^(BOOL finished) {
+                // end
+                [hole removeFromSuperview];
+                target.tag = 0; // clear
+                [transitionContext completeTransition:YES];
+            }];
         }];
     }];
 }
