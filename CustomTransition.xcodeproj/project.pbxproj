@@ -10,6 +10,7 @@
 		AD49200E1E82265D00D4A28E /* HoleExpandingView.m in Sources */ = {isa = PBXBuildFile; fileRef = AD49200D1E82265D00D4A28E /* HoleExpandingView.m */; };
 		AD4920111E824C9000D4A28E /* ShadowAnimationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AD4920101E824C9000D4A28E /* ShadowAnimationViewController.m */; };
 		AD4920141E824CD500D4A28E /* ShadowAnimationView.m in Sources */ = {isa = PBXBuildFile; fileRef = AD4920131E824CD500D4A28E /* ShadowAnimationView.m */; };
+		AD4920171E825C9900D4A28E /* UIViewController+MagicView.m in Sources */ = {isa = PBXBuildFile; fileRef = AD4920161E825C9900D4A28E /* UIViewController+MagicView.m */; };
 		ADF7FFAE1E80FB2100D4A28E /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = ADF7FFAD1E80FB2100D4A28E /* main.m */; };
 		ADF7FFB11E80FB2100D4A28E /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = ADF7FFB01E80FB2100D4A28E /* AppDelegate.m */; };
 		ADF7FFB41E80FB2100D4A28E /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ADF7FFB31E80FB2100D4A28E /* ViewController.m */; };
@@ -34,6 +35,8 @@
 		AD4920101E824C9000D4A28E /* ShadowAnimationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShadowAnimationViewController.m; sourceTree = "<group>"; };
 		AD4920121E824CD500D4A28E /* ShadowAnimationView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShadowAnimationView.h; sourceTree = "<group>"; };
 		AD4920131E824CD500D4A28E /* ShadowAnimationView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShadowAnimationView.m; sourceTree = "<group>"; };
+		AD4920151E825C9900D4A28E /* UIViewController+MagicView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+MagicView.h"; sourceTree = "<group>"; };
+		AD4920161E825C9900D4A28E /* UIViewController+MagicView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+MagicView.m"; sourceTree = "<group>"; };
 		ADF7FFA91E80FB2100D4A28E /* CustomTransition.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CustomTransition.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		ADF7FFAD1E80FB2100D4A28E /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		ADF7FFAF1E80FB2100D4A28E /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -107,6 +110,8 @@
 				ADF7FFC81E80FB5E00D4A28E /* EndViewController.m */,
 				ADF7FFCD1E81011C00D4A28E /* MagicAnimator.h */,
 				ADF7FFCE1E81011C00D4A28E /* MagicAnimator.m */,
+				AD4920151E825C9900D4A28E /* UIViewController+MagicView.h */,
+				AD4920161E825C9900D4A28E /* UIViewController+MagicView.m */,
 				ADF7FFD01E810B1100D4A28E /* post_1.png */,
 				ADF7FFD11E810B1100D4A28E /* post_2.png */,
 				ADF7FFD21E810B1100D4A28E /* post_3.png */,
@@ -211,6 +216,7 @@
 				ADF7FFB11E80FB2100D4A28E /* AppDelegate.m in Sources */,
 				ADF7FFD81E812D9900D4A28E /* HoleAnimationViewController.m in Sources */,
 				ADF7FFAE1E80FB2100D4A28E /* main.m in Sources */,
+				AD4920171E825C9900D4A28E /* UIViewController+MagicView.m in Sources */,
 				ADF7FFCC1E80FBD100D4A28E /* BeginViewController.m in Sources */,
 				AD4920141E824CD500D4A28E /* ShadowAnimationView.m in Sources */,
 				AD4920111E824C9000D4A28E /* ShadowAnimationViewController.m in Sources */,

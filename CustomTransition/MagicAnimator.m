@@ -9,6 +9,7 @@
 #import "MagicAnimator.h"
 #import "HoleExpandingView.h"
 #import "ShadowAnimationView.h"
+#import "UIViewController+MagicView.h"
 
 @implementation MagicAnimator
 
@@ -32,9 +33,9 @@
      注1: Animator 需要插入各种遮罩，对被动画的 view 中的层级有假设，若嵌套层次超过一层，需要相应的修改。
      */
 
-    UIView *source = [from.view viewWithTag:10000];
-    UIView *target = [to.view viewWithTag:10000];
-    NSAssert(source && target, @"no view with tag 10000 found in from/to view controllers!");
+    UIView *source = from.magicView;
+    UIView *target = to.magicView;
+    NSAssert(source && target, @"no magic view set in from/to view controllers!");
 
     UIView *container = transitionContext.containerView;
 
@@ -79,7 +80,6 @@
                         [hole startAnimationWithCompletion:^(BOOL finished) {
                             // end
                             [hole removeFromSuperview];
-                            target.tag = 0; // clear
                             [transitionContext completeTransition:YES];
                         }];
                     }];
@@ -129,7 +129,6 @@
                             [mask removeFromSuperview];
 
                             // end
-                            target.tag = 0; // clear
                             [transitionContext completeTransition:YES];
                         }];
                     }];

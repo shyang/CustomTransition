@@ -8,6 +8,7 @@
 
 #import "BeginViewController.h"
 #import "EndViewController.h"
+#import "UIViewController+MagicView.h"
 
 @interface BeginViewController ()
 
@@ -18,7 +19,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-    self.title = @"From";
+    self.title = @"BeginViewController";
 
     self.view.backgroundColor = [UIColor lightGrayColor];
 
@@ -40,7 +41,7 @@
     NSLog(@"%@", NSStringFromCGPoint([gesture locationInView:gesture.view]));
 
     // Animator 需要知道哪个控件触发了页面跳转事件，此处使用 tag 来标记
-    gesture.view.tag = 10000; // set
+    self.magicView = gesture.view;
 
     [self.navigationController pushViewController:[[EndViewController alloc] init] animated:YES];
 }
