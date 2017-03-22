@@ -18,7 +18,7 @@
 
 - (instancetype)initWithFrame:(CGRect)frame {
     if (self = [super initWithFrame:frame]) {
-        _duration = 1;
+        _duration = .1;
     }
     return self;
 }

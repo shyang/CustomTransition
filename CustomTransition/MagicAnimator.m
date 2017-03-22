@@ -46,43 +46,42 @@
         [from.view addSubview:mask];
         [from.view bringSubviewToFront:source]; // ^注1
 
-        [UIView animateWithDuration:0.5 animations:^{
+        [UIView animateWithDuration:.3 animations:^{
             mask.alpha = 1;
-        }];
+        } completion:^(BOOL finished) {
+            // 动画2 升起
+            ShadowAnimationView *shadow = [[ShadowAnimationView alloc] initWithFrame:source.frame];
+            [from.view insertSubview:shadow belowSubview:source];
+            [shadow startAnimationWithCompletion:^(BOOL finished) {
 
-        // 动画2 阴影
-        ShadowAnimationView *shadow = [[ShadowAnimationView alloc] initWithFrame:source.frame];
-        [from.view insertSubview:shadow belowSubview:source];
+                // 动画3 移动
+                CGRect savedFrame = source.frame;
+                [UIView animateWithDuration:1 animations:^{
+                    source.frame = target.frame;
+                    shadow.frame = target.frame;
+                } completion:^(BOOL finished) {
 
-        [shadow startAnimationWithCompletion:^(BOOL finished) {
+                    // 动画4 降落
+                    shadow.reverse = YES;
+                    [shadow startAnimationWithCompletion:^(BOOL finished) {
+                        // revert
+                        source.frame = savedFrame;
+                        [shadow removeFromSuperview];
+                        [mask removeFromSuperview];
 
-            // 动画3 移动
-            CGRect savedFrame = source.frame;
-            [UIView animateWithDuration:1 animations:^{
-                source.frame = target.frame;
-                shadow.frame = target.frame;
-            } completion:^(BOOL finished) {
+                        // 动画5 涟漪
+                        [container addSubview:to.view];
+                        HoleExpandingView *hole = [[HoleExpandingView alloc] initWithFrame:container.bounds];
+                        hole.holeCenter = target.center;
+                        [to.view addSubview:hole];
+                        [to.view bringSubviewToFront:target]; // ^注1
 
-                // 动画4 阴影
-                shadow.reverse = YES;
-                [shadow startAnimationWithCompletion:^(BOOL finished) {
-                    // revert
-                    source.frame = savedFrame;
-                    [shadow removeFromSuperview];
-                    [mask removeFromSuperview];
-
-                    // 动画5 涟漪
-                    [container addSubview:to.view];
-                    HoleExpandingView *hole = [[HoleExpandingView alloc] initWithFrame:container.bounds];
-                    hole.holeCenter = target.center;
-                    [to.view addSubview:hole];
-                    [to.view bringSubviewToFront:target]; // ^注1
-
-                    [hole startAnimationWithCompletion:^(BOOL finished) {
-                        // end
-                        [hole removeFromSuperview];
-                        target.tag = 0; // clear
-                        [transitionContext completeTransition:YES];
+                        [hole startAnimationWithCompletion:^(BOOL finished) {
+                            // end
+                            [hole removeFromSuperview];
+                            target.tag = 0; // clear
+                            [transitionContext completeTransition:YES];
+                        }];
                     }];
                 }];
             }];
@@ -94,34 +93,46 @@
         hole.reverse = YES;
         [from.view addSubview:hole];
         [from.view bringSubviewToFront:source]; // ^注1
-
         [hole startAnimationWithCompletion:^(BOOL finished) {
-            [hole removeFromSuperview];
-            // 插入 mask
+            // hole 替换为 mask
             UIView *mask = [[UIView alloc] initWithFrame:container.bounds];
             mask.backgroundColor = [UIColor whiteColor];
-            [from.view insertSubview:mask belowSubview:source]; // ^注1
+            [from.view insertSubview:mask aboveSubview:hole]; // ^注1
+            [hole removeFromSuperview];
 
-            // 动画3 移动
-            CGRect savedFrame = source.frame;
-            [UIView animateWithDuration:1 animations:^{
-                source.frame = target.frame;
-            } completion:^(BOOL finished) {
-                // revert
-                source.frame = savedFrame;
+            // 动画2 升起
+            ShadowAnimationView *shadow = [[ShadowAnimationView alloc] initWithFrame:source.frame];
+            [from.view insertSubview:shadow belowSubview:source];
+            [shadow startAnimationWithCompletion:^(BOOL finished) {
 
-                // 动画1 淡出
-                [to.view addSubview:mask];
-                [to.view bringSubviewToFront:target];
-                [container addSubview:to.view];
-                [UIView animateWithDuration:.5 animations:^{
-                    mask.alpha = 0;
+                // 动画3 移动
+                CGRect savedFrame = source.frame;
+                [UIView animateWithDuration:1 animations:^{
+                    source.frame = target.frame;
+                    shadow.frame = target.frame;
                 } completion:^(BOOL finished) {
-                    [mask removeFromSuperview];
 
-                    // end
-                    target.tag = 0; // clear
-                    [transitionContext completeTransition:YES];
+                    // 动画4 降落
+                    shadow.reverse = YES;
+                    [shadow startAnimationWithCompletion:^(BOOL finished) {
+                        // revert
+                        source.frame = savedFrame;
+                        [shadow removeFromSuperview];
+
+                        // 动画1 淡出
+                        [to.view addSubview:mask];
+                        [to.view bringSubviewToFront:target];
+                        [container addSubview:to.view];
+                        [UIView animateWithDuration:.3 animations:^{
+                            mask.alpha = 0;
+                        } completion:^(BOOL finished) {
+                            [mask removeFromSuperview];
+
+                            // end
+                            target.tag = 0; // clear
+                            [transitionContext completeTransition:YES];
+                        }];
+                    }];
                 }];
             }];
         }];
