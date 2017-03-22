@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		AD49200E1E82265D00D4A28E /* HoleExpandingView.m in Sources */ = {isa = PBXBuildFile; fileRef = AD49200D1E82265D00D4A28E /* HoleExpandingView.m */; };
+		AD4920111E824C9000D4A28E /* ShadowAnimationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AD4920101E824C9000D4A28E /* ShadowAnimationViewController.m */; };
+		AD4920141E824CD500D4A28E /* ShadowAnimationView.m in Sources */ = {isa = PBXBuildFile; fileRef = AD4920131E824CD500D4A28E /* ShadowAnimationView.m */; };
 		ADF7FFAE1E80FB2100D4A28E /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = ADF7FFAD1E80FB2100D4A28E /* main.m */; };
 		ADF7FFB11E80FB2100D4A28E /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = ADF7FFB01E80FB2100D4A28E /* AppDelegate.m */; };
 		ADF7FFB41E80FB2100D4A28E /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ADF7FFB31E80FB2100D4A28E /* ViewController.m */; };
@@ -28,6 +30,10 @@
 /* Begin PBXFileReference section */
 		AD49200C1E82265D00D4A28E /* HoleExpandingView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HoleExpandingView.h; sourceTree = "<group>"; };
 		AD49200D1E82265D00D4A28E /* HoleExpandingView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HoleExpandingView.m; sourceTree = "<group>"; };
+		AD49200F1E824C9000D4A28E /* ShadowAnimationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShadowAnimationViewController.h; sourceTree = "<group>"; };
+		AD4920101E824C9000D4A28E /* ShadowAnimationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShadowAnimationViewController.m; sourceTree = "<group>"; };
+		AD4920121E824CD500D4A28E /* ShadowAnimationView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShadowAnimationView.h; sourceTree = "<group>"; };
+		AD4920131E824CD500D4A28E /* ShadowAnimationView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShadowAnimationView.m; sourceTree = "<group>"; };
 		ADF7FFA91E80FB2100D4A28E /* CustomTransition.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CustomTransition.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		ADF7FFAD1E80FB2100D4A28E /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		ADF7FFAF1E80FB2100D4A28E /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -91,6 +97,10 @@
 				ADF7FFD71E812D9900D4A28E /* HoleAnimationViewController.m */,
 				AD49200C1E82265D00D4A28E /* HoleExpandingView.h */,
 				AD49200D1E82265D00D4A28E /* HoleExpandingView.m */,
+				AD49200F1E824C9000D4A28E /* ShadowAnimationViewController.h */,
+				AD4920101E824C9000D4A28E /* ShadowAnimationViewController.m */,
+				AD4920121E824CD500D4A28E /* ShadowAnimationView.h */,
+				AD4920131E824CD500D4A28E /* ShadowAnimationView.m */,
 				ADF7FFCA1E80FBD100D4A28E /* BeginViewController.h */,
 				ADF7FFCB1E80FBD100D4A28E /* BeginViewController.m */,
 				ADF7FFC71E80FB5E00D4A28E /* EndViewController.h */,
@@ -202,6 +212,8 @@
 				ADF7FFD81E812D9900D4A28E /* HoleAnimationViewController.m in Sources */,
 				ADF7FFAE1E80FB2100D4A28E /* main.m in Sources */,
 				ADF7FFCC1E80FBD100D4A28E /* BeginViewController.m in Sources */,
+				AD4920141E824CD500D4A28E /* ShadowAnimationView.m in Sources */,
+				AD4920111E824C9000D4A28E /* ShadowAnimationViewController.m in Sources */,
 				AD49200E1E82265D00D4A28E /* HoleExpandingView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

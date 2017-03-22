@@ -10,9 +10,7 @@
 #import "HoleExpandingView.h"
 
 @implementation MagicAnimator
-- (void)dealloc {
-    NSLog(@"dealloc");
-}
+
 - (NSTimeInterval)transitionDuration:(id<UIViewControllerContextTransitioning>)transitionContext {
     return 5;
 }
