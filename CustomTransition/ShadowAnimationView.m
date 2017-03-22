@@ -27,11 +27,11 @@
     _doneBlock = completion;
     
     self.layer.shadowColor = [UIColor blackColor].CGColor;
-    self.layer.shadowOpacity = .1;
+    self.layer.shadowOpacity = .2;
     self.layer.shadowRadius = 5;
 
     UIBezierPath *fromPath = [UIBezierPath bezierPathWithRect:self.bounds];
-    UIBezierPath *toPath = [UIBezierPath bezierPathWithRect:CGRectMake(-10, -5, self.bounds.size.width + 20, self.bounds.size.height + 20)];
+    UIBezierPath *toPath = [UIBezierPath bezierPathWithRect:CGRectMake(-5, 0, self.bounds.size.width + 10, self.bounds.size.height + 15)];
 
     CABasicAnimation *anim = [CABasicAnimation animationWithKeyPath:@"shadowPath"];
     if (_reverse) {
@@ -50,6 +50,8 @@
 }
 
 - (void)animationDidStop:(CAAnimation *)anim finished:(BOOL)flag {
+    [self.layer removeAllAnimations];
+
     if (_doneBlock) {
         _doneBlock(flag);
     }

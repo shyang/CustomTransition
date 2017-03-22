@@ -22,9 +22,12 @@
 
     ShadowAnimationView *mask = [[ShadowAnimationView alloc] initWithFrame:CGRectMake(100, 100, 40, 60)];
     mask.backgroundColor = [UIColor redColor];
-    mask.reverse = YES;
     [self.view addSubview:mask];
-    [mask startAnimationWithCompletion:nil];
+    [mask startAnimationWithCompletion:^(BOOL finished) {
+        mask.reverse = YES;
+        [mask startAnimationWithCompletion:nil];
+
+    }];
 
 }
 

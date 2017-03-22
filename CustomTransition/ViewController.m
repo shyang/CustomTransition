@@ -19,7 +19,7 @@
 @implementation ViewController
 
 - (instancetype)initWithCoder:(NSCoder *)aDecoder {
-    if (self = [super initWithRootViewController:[[ShadowAnimationViewController alloc] init]]) {
+    if (self = [super initWithRootViewController:[[BeginViewController alloc] init]]) {
         self.navigationBarHidden = YES;
         self.delegate = self;
     }

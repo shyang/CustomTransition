@@ -8,6 +8,7 @@
 
 #import "MagicAnimator.h"
 #import "HoleExpandingView.h"
+#import "ShadowAnimationView.h"
 
 @implementation MagicAnimator
 
@@ -38,7 +39,7 @@
     UIView *container = transitionContext.containerView;
 
     if (_operation == UINavigationControllerOperationPush) {
-        // 动画1
+        // 动画1 淡入
         UIView *mask = [[UIView alloc] initWithFrame:container.bounds];
         mask.alpha = 0;
         mask.backgroundColor = [UIColor whiteColor];
@@ -47,34 +48,47 @@
 
         [UIView animateWithDuration:0.5 animations:^{
             mask.alpha = 1;
-        } completion:^(BOOL finished) {
+        }];
 
-            // 动画2
+        // 动画2 阴影
+        ShadowAnimationView *shadow = [[ShadowAnimationView alloc] initWithFrame:source.frame];
+        [from.view insertSubview:shadow belowSubview:source];
+
+        [shadow startAnimationWithCompletion:^(BOOL finished) {
+
+            // 动画3 移动
             CGRect savedFrame = source.frame;
             [UIView animateWithDuration:1 animations:^{
                 source.frame = target.frame;
+                shadow.frame = target.frame;
             } completion:^(BOOL finished) {
-                // revert
-                source.frame = savedFrame;
-                [mask removeFromSuperview];
 
-                // 动画5
-                [container addSubview:to.view];
-                HoleExpandingView *hole = [[HoleExpandingView alloc] initWithFrame:container.bounds];
-                hole.holeCenter = target.center;
-                [to.view addSubview:hole];
-                [to.view bringSubviewToFront:target]; // ^注1
+                // 动画4 阴影
+                shadow.reverse = YES;
+                [shadow startAnimationWithCompletion:^(BOOL finished) {
+                    // revert
+                    source.frame = savedFrame;
+                    [shadow removeFromSuperview];
+                    [mask removeFromSuperview];
 
-                [hole startAnimationWithCompletion:^(BOOL finished) {
-                    // end
-                    [hole removeFromSuperview];
-                    target.tag = 0; // clear
-                    [transitionContext completeTransition:YES];
+                    // 动画5 涟漪
+                    [container addSubview:to.view];
+                    HoleExpandingView *hole = [[HoleExpandingView alloc] initWithFrame:container.bounds];
+                    hole.holeCenter = target.center;
+                    [to.view addSubview:hole];
+                    [to.view bringSubviewToFront:target]; // ^注1
+
+                    [hole startAnimationWithCompletion:^(BOOL finished) {
+                        // end
+                        [hole removeFromSuperview];
+                        target.tag = 0; // clear
+                        [transitionContext completeTransition:YES];
+                    }];
                 }];
             }];
         }];
     } else if (_operation == UINavigationControllerOperationPop) {
-        // 动画5
+        // 动画5 涟漪
         HoleExpandingView *hole = [[HoleExpandingView alloc] initWithFrame:container.bounds];
         hole.holeCenter = source.center;
         hole.reverse = YES;
@@ -88,7 +102,7 @@
             mask.backgroundColor = [UIColor whiteColor];
             [from.view insertSubview:mask belowSubview:source]; // ^注1
 
-            // 动画2
+            // 动画3 移动
             CGRect savedFrame = source.frame;
             [UIView animateWithDuration:1 animations:^{
                 source.frame = target.frame;
@@ -96,7 +110,7 @@
                 // revert
                 source.frame = savedFrame;
 
-                // 动画1
+                // 动画1 淡出
                 [to.view addSubview:mask];
                 [to.view bringSubviewToFront:target];
                 [container addSubview:to.view];
