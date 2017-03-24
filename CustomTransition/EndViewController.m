@@ -20,7 +20,7 @@
 
     self.title = @"EndViewController";
 
-    self.view.backgroundColor = [UIColor lightGrayColor];
+    self.view.backgroundColor = [UIColor greenColor];
 
     UIImageView *imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"269.jpg"]];
     imageView.frame = self.view.bounds;

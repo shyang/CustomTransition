@@ -21,7 +21,7 @@
 
     self.title = @"BeginViewController";
 
-    self.view.backgroundColor = [UIColor lightGrayColor];
+    self.view.backgroundColor = [UIColor redColor];
 
     UIImageView *imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"203.jpg"]];
     imageView.frame = self.view.bounds;

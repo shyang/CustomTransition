@@ -17,11 +17,18 @@
 #import "MagicAnimator.h"
 #import "UIViewController+MagicView.h"
 #import "HoleMaskViewController.h"
+#import "HoleAnimator.h"
+
+@protocol Animator <UIViewControllerAnimatedTransitioning>
+
+@property (nonatomic) UINavigationControllerOperation operation;
+
+@end
 
 @interface IndexViewController () <UINavigationControllerDelegate>
 
 @property (nonatomic) NSArray *items;
-@property (nonatomic) BOOL enableTransitionAnimation;
+@property (nonatomic) id<Animator> animator;
 
 @end
 
@@ -38,7 +45,8 @@
         @{@"title": @"阴影扩张 (shadow on)", @"next": [ShadowOnViewController class]},
         @{@"title": @"阴影收缩 (shadow off)", @"next": [ShadowOffViewController class]},
         @{@"title": @"系统缺省 (system push/pop)", @"next": [BeginViewController class]},
-        @{@"title": @"定制动画 (customized push/pop)", @"next": [BeginViewController class]},
+        @{@"title": @"定制动画1 (customized push/pop)", @"next": [BeginViewController class], @"animator": [HoleAnimator class]},
+        @{@"title": @"定制动画2 (customized push/pop)", @"next": [BeginViewController class], @"animator": [MagicAnimator class]},
     ];
 }
 
@@ -53,18 +61,18 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    Class cls = _items[indexPath.row][@"next"];
+    id item = _items[indexPath.row];
+    Class cls = item[@"next"];
     [self.navigationController pushViewController:[[cls alloc] init] animated:YES];
 
-    _enableTransitionAnimation = indexPath.row == _items.count - 1;
+    _animator = [[item[@"animator"] alloc] init];
 }
 
 - (id<UIViewControllerAnimatedTransitioning>)navigationController:(UINavigationController *)navigationController animationControllerForOperation:(UINavigationControllerOperation)operation fromViewController:(UIViewController *)fromVC toViewController:(UIViewController *)toVC {
     // 可根据 from、to、operation 等进行过滤
-    if (_enableTransitionAnimation && fromVC != self && toVC != self) {
-        MagicAnimator *animator = [[MagicAnimator alloc] init];
-        animator.operation = operation;
-        return animator;
+    if (_animator && fromVC != self && toVC != self) {
+        _animator.operation = operation;
+        return _animator;
     }
     return nil;
 }
