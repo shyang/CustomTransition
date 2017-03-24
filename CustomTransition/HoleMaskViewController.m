@@ -24,6 +24,11 @@
     UIView *maskView = [[UIView alloc] initWithFrame:self.view.bounds];
     [self.view addSubview:maskView];
 
+    imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"269.jpg"]];
+    imageView.frame = maskView.bounds;
+    [maskView addSubview:imageView];
+
+/*
     UIView *up = [[UIView alloc] initWithFrame:CGRectMake(0, 0, maskView.bounds.size.width, 200)];
     up.backgroundColor = [UIColor redColor];
     up.autoresizingMask = UIViewAutoresizingFlexibleWidth;
@@ -33,9 +38,10 @@
     down.backgroundColor = [UIColor blueColor];
     down.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     [maskView addSubview:down];
+ */
 
     CGPoint holeCenter = CGPointMake(100, 200);
-    CGFloat holeRadius = 0;
+    CGFloat holeRadius = 20;
     BOOL reverse = NO;
     CFTimeInterval duration = 5;
 
