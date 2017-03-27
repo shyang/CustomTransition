@@ -7,9 +7,9 @@
 //
 
 #import "MagicAnimator.h"
-#import "ShadowView.h"
+#import "UIView+ShadowAnimation.h"
 #import "UIViewController+MagicView.h"
-#import "HoleMaskView.h"
+#import "UIView+HoleAnimation.h"
 
 static const CGFloat kTotal = 10;
 

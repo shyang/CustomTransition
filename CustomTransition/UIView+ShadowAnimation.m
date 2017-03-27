@@ -1,5 +1,5 @@
 //
-//  ShadowAnimationView.m
+//  UIView+ShadowAnimation.m
 //  CustomTransition
 //
 //  Created by shaohua on 22/03/2017.
@@ -8,7 +8,7 @@
 
 #import <objc/runtime.h>
 
-#import "ShadowView.h"
+#import "UIView+ShadowAnimation.h"
 #import "CAAnimationBlock.h"
 
 @implementation UIView (ShadowAnimation)

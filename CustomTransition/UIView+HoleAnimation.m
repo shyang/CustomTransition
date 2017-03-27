@@ -1,5 +1,5 @@
 //
-//  HoleMaskView.m
+//  UIView+HoleAnimation.m
 //  CustomTransition
 //
 //  Created by shaohua on 24/03/2017.
@@ -9,7 +9,7 @@
 #import <objc/runtime.h>
 
 #import "CAAnimationBlock.h"
-#import "HoleMaskView.h"
+#import "UIView+HoleAnimation.h"
 
 @implementation UIView (HoleAnimation)
 

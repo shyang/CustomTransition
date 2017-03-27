@@ -7,7 +7,7 @@
 //
 
 #import "HoleAnimator.h"
-#import "HoleMaskView.h"
+#import "UIView+HoleAnimation.h"
 
 @implementation HoleAnimator
 

@@ -7,7 +7,7 @@
 //
 
 #import "ShadowViewController.h"
-#import "ShadowView.h"
+#import "UIView+ShadowAnimation.h"
 
 @interface ShadowViewController () {
     BOOL _on;

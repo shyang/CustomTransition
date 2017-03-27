@@ -7,7 +7,7 @@
 //
 
 #import "HoleMaskViewController.h"
-#import "HoleMaskView.h"
+#import "UIView+HoleAnimation.h"
 
 @interface HoleMaskViewController () <CAAnimationDelegate> {
     BOOL _on;

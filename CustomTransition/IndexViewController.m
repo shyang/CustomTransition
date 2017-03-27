@@ -7,7 +7,6 @@
 //
 
 #import "IndexViewController.h"
-#import "ShadowView.h"
 #import "ShadowViewController.h"
 #import "BeginViewController.h"
 #import "MagicAnimator.h"
