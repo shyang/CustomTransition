@@ -8,13 +8,10 @@
 
 #import <UIKit/UIKit.h>
 
-@interface HoleMaskView : UIView
+@interface UIView (HoleAnimation)
 
-@property (nonatomic) CGPoint holeCenter; // 空洞的初始圆心，缺省为正中
-@property (nonatomic) CGFloat holeRadius; // 空洞的初始半径，缺省为 0
-
-@property (nonatomic) BOOL reverse; // 不是扩张，而是缩小。holeCenter、holeRadius 的意义变为终止状态时的值
-
-- (void)animateWithDuration:(NSTimeInterval)duration delay:(NSTimeInterval)delay preparation:(void (^)(void))preparation completion:(void (^)(BOOL finished))completion;
+// center: 空洞的初始圆心，缺省为正中
+// reverse: 不是扩张，而是缩小。holeCenter、holeRadius 的意义变为终止状态时的值
+- (void)holeAtCenter:(CGPoint)center duration:(NSTimeInterval)duration reverse:(BOOL)reverse completion:(void (^)(BOOL finished))completion;
 
 @end

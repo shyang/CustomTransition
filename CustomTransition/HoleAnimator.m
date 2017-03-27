@@ -22,22 +22,19 @@
     UIView *container = transitionContext.containerView;
 
     if (_operation == UINavigationControllerOperationPush) {
-        HoleMaskView *maskView = [[HoleMaskView alloc] initWithFrame:container.bounds];
-        [maskView animateWithDuration:1 delay:0 preparation:^{
-            [container addSubview:to.view];
-            [container addSubview:maskView];
-            [maskView addSubview:from.view];
-        } completion:^(BOOL finished) {
+        UIView *maskView = [[UIView alloc] initWithFrame:container.bounds];
+        [container addSubview:to.view];
+        [container addSubview:maskView];
+        [maskView addSubview:from.view];
+        [maskView holeAtCenter:maskView.center duration:1 reverse:NO completion:^(BOOL finished) {
             [maskView removeFromSuperview];
             [transitionContext completeTransition:YES];
         }];
     } else if (_operation == UINavigationControllerOperationPop) {
-        HoleMaskView *maskView = [[HoleMaskView alloc] initWithFrame:container.bounds];
-        [maskView animateWithDuration:1 delay:0 preparation:^{
-            maskView.reverse = YES;
-            [container addSubview:maskView];
-            [maskView addSubview:to.view];
-        } completion:^(BOOL finished) {
+        UIView *maskView = [[UIView alloc] initWithFrame:container.bounds];
+        [container addSubview:maskView];
+        [maskView addSubview:to.view];
+        [maskView holeAtCenter:maskView.center duration:1 reverse:YES completion:^(BOOL finished) {
             [maskView removeFromSuperview];
             [container addSubview:to.view];
             [transitionContext completeTransition:YES];

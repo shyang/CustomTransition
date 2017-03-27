@@ -61,13 +61,13 @@ static const CGFloat kFadeTime = .17 * kTotal;
 
     if (_operation == UINavigationControllerOperationPush) {
         // 动画1 淡出
-        HoleMaskView *hole = [[HoleMaskView alloc] initWithFrame:container.bounds];
-        hole.alpha = 0;
-        hole.backgroundColor = [UIColor whiteColor];
-        [from.view addSubview:hole];
+        UIView *mask = [[UIView alloc] initWithFrame:container.bounds];
+        mask.alpha = 0;
+        mask.backgroundColor = [UIColor whiteColor];
+        [from.view addSubview:mask];
         [from.view bringSubviewToFront:source]; // ^注1
         [UIView animateWithDuration:kFadeTime animations:^{
-            hole.alpha = 1;
+            mask.alpha = 1;
         }];
 
         // 动画2 升起
@@ -90,32 +90,25 @@ static const CGFloat kFadeTime = .17 * kTotal;
                     source.frame = savedFrame;
 
                     // 动画5 涟漪
-                    [hole animateWithDuration:kHoleTime delay:0 preparation:^{
-                        hole.holeCenter = target.center;
-
-                        [container addSubview:to.view];
-                        [to.view addSubview:hole];
-                        [to.view bringSubviewToFront:target]; // ^注1
-                    } completion:^(BOOL finished) {
+                    [container addSubview:to.view];
+                    [to.view addSubview:mask];
+                    [to.view bringSubviewToFront:target]; // ^注1
+                    [mask holeAtCenter:target.center duration:kHoleTime reverse:NO completion:^(BOOL finished) {
                         // end
-                        [hole removeFromSuperview];
+                        [mask removeFromSuperview];
                         [transitionContext completeTransition:YES];
                     }];
                 }];
             }];
-
         }];
 
     } else if (_operation == UINavigationControllerOperationPop) {
         // 动画5 涟漪
-        HoleMaskView *hole = [[HoleMaskView alloc] initWithFrame:container.bounds];
-        [hole animateWithDuration:kHoleTime delay:0 preparation:^{
-            hole.backgroundColor = [UIColor whiteColor];
-            hole.reverse = YES;
-            hole.holeCenter = source.center;
-            [from.view addSubview:hole];
-            [from.view bringSubviewToFront:source]; // ^注1
-        } completion:^(BOOL finished) {
+        UIView *mask = [[UIView alloc] initWithFrame:container.bounds];
+        mask.backgroundColor = [UIColor whiteColor];
+        [from.view addSubview:mask];
+        [from.view bringSubviewToFront:source]; // ^注1
+        [mask holeAtCenter:source.center duration:kHoleTime reverse:YES completion:^(BOOL finished) {
 
             // 动画4 升起
             [source shadowWithDuration:kShadowTime reverse:NO completion:^(BOOL finished) {
@@ -139,11 +132,11 @@ static const CGFloat kFadeTime = .17 * kTotal;
 
                     NSAssert(kFadeTime < kDownTime, @"otherwise change the delay");
                     // 动画1 淡入
-                    [container insertSubview:to.view belowSubview:hole];
+                    [container insertSubview:to.view belowSubview:mask];
                     [UIView animateWithDuration:kFadeTime delay:kDownTime - kFadeTime options:0 animations:^{
-                        hole.alpha = 0;
+                        mask.alpha = 0;
                     } completion:^(BOOL finished) {
-                        [hole removeFromSuperview];
+                        [mask removeFromSuperview];
                         [container addSubview:to.view];
                         // end
                         [transitionContext completeTransition:YES];

@@ -11,7 +11,7 @@
 
 @interface HoleMaskViewController () <CAAnimationDelegate> {
     BOOL _on;
-    HoleMaskView *_maskView;
+    UIView *_maskView;
 }
 
 @end
@@ -25,7 +25,7 @@
     imageView.frame = self.view.bounds;
     [self.view addSubview:imageView];
 
-    _maskView = [[HoleMaskView alloc] initWithFrame:self.view.bounds];
+    _maskView = [[UIView alloc] initWithFrame:self.view.bounds];
     [self.view addSubview:_maskView];
 
     imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"269.jpg"]];
@@ -50,15 +50,13 @@
 - (void)toggle {
     self.navigationItem.rightBarButtonItem.enabled = NO;
     if (_on) {
-        _maskView.reverse = YES;
-        [_maskView animateWithDuration:1 delay:0 preparation:nil completion:^(BOOL finished) {
+        [_maskView holeAtCenter:self.view.center duration:1 reverse:YES completion:^(BOOL finished) {
             _on = NO;
             self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"On" style:UIBarButtonItemStylePlain target:self action:@selector(toggle)];
             self.navigationItem.rightBarButtonItem.enabled = YES;
         }];
     } else {
-        _maskView.reverse = NO;
-        [_maskView animateWithDuration:1 delay:0 preparation:nil completion:^(BOOL finished) {
+        [_maskView holeAtCenter:self.view.center duration:1 reverse:NO completion:^(BOOL finished) {
             _on = YES;
             self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Off" style:UIBarButtonItemStylePlain target:self action:@selector(toggle)];
             self.navigationItem.rightBarButtonItem.enabled = YES;
