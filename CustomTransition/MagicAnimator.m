@@ -12,10 +12,12 @@
 #import "HoleMaskView.h"
 
 // Fade out, Shadow on, Move&Scale up, Scale down&Shadow off, Hole expand
+// 0&1, 2 -> 3 -> 4
 static const CGFloat kAnimationStart[] = {0, 0, .1, .56, .82};
 static const CGFloat kAnimationDuration[] = {.18, .08, .46, .26, .28};
 
 // Hole shrink, Shadow on, Move&Scale up, Scale down&Shadow off, Fade in
+// 0 -> 1 -> 2 -> 3&4
 static const CGFloat kReverseStart[] = {0, .28, .36, .85, .85};
 static const CGFloat kReverseDuration[] = {.28, .08, .49, .19, .19};
 
@@ -47,14 +49,14 @@ static const CGFloat kReverseDuration[] = {.28, .08, .49, .19, .19};
     UIView *container = transitionContext.containerView;
 
     if (_operation == UINavigationControllerOperationPush) {
-        // 动画1 淡入
-        UIView *mask = [[UIView alloc] initWithFrame:container.bounds];
-        mask.alpha = 0;
-        mask.backgroundColor = [UIColor whiteColor];
-        [from.view addSubview:mask];
+        // 动画1 淡出
+        HoleMaskView *hole = [[HoleMaskView alloc] initWithFrame:container.bounds];
+        hole.alpha = 0;
+        hole.backgroundColor = [UIColor whiteColor];
+        [from.view addSubview:hole];
         [from.view bringSubviewToFront:source]; // ^注1
         [UIView animateWithDuration:kAnimationDuration[0] delay:kAnimationStart[0] options:0 animations:^{
-            mask.alpha = 1;
+            hole.alpha = 1;
         } completion:nil];
 
         // 动画2 升起
@@ -69,90 +71,86 @@ static const CGFloat kReverseDuration[] = {.28, .08, .49, .19, .19};
             CGRect bigger = CGRectInset(target.frame, -target.bounds.size.width * 0.04, -target.bounds.size.height * 0.04);
             source.frame = bigger;
             shadow.frame = bigger;
-        } completion:nil];
-
-        // 动画4 降落&缩小
-        [shadow animateWithDuration:kAnimationDuration[3] delay:kAnimationStart[3] preparation:^{
-            shadow.reverse = YES;
         } completion:^(BOOL finished) {
-            // revert
-            source.frame = savedFrame;
-            [shadow removeFromSuperview];
-            [mask removeFromSuperview];
-        }];
-        [UIView animateWithDuration:kAnimationDuration[3] delay:kAnimationStart[3] options:0 animations:^{
-            source.frame = target.frame;
-            shadow.frame = target.frame;
-        } completion:nil];
 
-        // 动画5 涟漪
-        HoleMaskView *hole = [[HoleMaskView alloc] initWithFrame:container.bounds];
-        [hole animateWithDuration:kAnimationDuration[4] delay:kAnimationStart[4] preparation:^{
-            [container addSubview:to.view];
-            hole.holeCenter = target.center;
-            [to.view addSubview:hole];
-            [to.view bringSubviewToFront:target]; // ^注1
-        } completion:^(BOOL finished) {
-            // end
-            [hole removeFromSuperview];
-            [transitionContext completeTransition:YES];
+            // 动画4 降落&缩小
+            [shadow animateWithDuration:kAnimationDuration[3] delay:0 preparation:^{
+                shadow.reverse = YES;
+            } completion:nil];
+
+            [UIView animateWithDuration:kAnimationDuration[3] delay:0 options:0 animations:^{
+                source.frame = target.frame;
+                shadow.frame = target.frame;
+            } completion:^(BOOL finished) {
+                // revert
+                source.frame = savedFrame;
+                [shadow removeFromSuperview];
+
+                // 动画5 涟漪
+                [hole animateWithDuration:kAnimationDuration[4] delay:0 preparation:^{
+                    hole.holeCenter = target.center;
+
+                    [container addSubview:to.view];
+                    [to.view addSubview:hole];
+                    [to.view bringSubviewToFront:target]; // ^注1
+                } completion:^(BOOL finished) {
+                    // end
+                    [hole removeFromSuperview];
+                    [transitionContext completeTransition:YES];
+                }];
+            }];
         }];
     } else if (_operation == UINavigationControllerOperationPop) {
         // 动画5 涟漪
         HoleMaskView *hole = [[HoleMaskView alloc] initWithFrame:container.bounds];
-        UIView *mask = [[UIView alloc] initWithFrame:container.bounds];
-        [hole animateWithDuration:kReverseDuration[0] delay:kReverseStart[0] preparation:^{
+        [hole animateWithDuration:kReverseDuration[0] delay:0 preparation:^{
+            hole.backgroundColor = [UIColor whiteColor];
             hole.reverse = YES;
             hole.holeCenter = source.center;
             [from.view addSubview:hole];
             [from.view bringSubviewToFront:source]; // ^注1
         } completion:^(BOOL finished) {
-            // hole 替换为 mask
-            mask.backgroundColor = [UIColor whiteColor];
-            [from.view insertSubview:mask aboveSubview:hole]; // ^注1
-            [hole removeFromSuperview];
-        }];
 
-        // 动画4 升起
-        ShadowView *shadow = [[ShadowView alloc] initWithFrame:source.frame];
-        [shadow animateWithDuration:kReverseDuration[1] delay:kReverseStart[1] preparation:^{
-            [from.view insertSubview:shadow belowSubview:source];
-        } completion:nil];
-
-        // 动画3 移动
-        CGRect savedFrame = source.frame;
-        [UIView animateWithDuration:kReverseDuration[2] delay:kReverseStart[2] options:0 animations:^{
-            CGRect bigger = CGRectInset(target.frame, -target.bounds.size.width * 0.04, -target.bounds.size.height * 0.04);
-            source.frame = bigger;
-            shadow.frame = bigger;
-        } completion:nil];
-
-        // 动画2 降落
-        shadow.reverse = YES;
-        [shadow animateWithDuration:kReverseDuration[3] delay:kReverseStart[3] preparation:nil completion:^(BOOL finished) {
-            // revert
-            source.frame = savedFrame;
-            [shadow removeFromSuperview];
-        }];
-        [UIView animateWithDuration:kReverseDuration[3] delay:kReverseStart[3] options:0 animations:^{
-            source.frame = target.frame;
-            shadow.frame = target.frame;
-        } completion:nil];
-
-        // 动画1 淡出
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(kReverseStart[4] * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            [to.view addSubview:mask];
-            [to.view bringSubviewToFront:target];
-            [container addSubview:to.view];
-            [UIView animateWithDuration:kReverseDuration[4] animations:^{
-                mask.alpha = 0;
+            // 动画4 升起
+            ShadowView *shadow = [[ShadowView alloc] initWithFrame:source.frame];
+            [shadow animateWithDuration:kReverseDuration[1] delay:0 preparation:^{
+                [from.view insertSubview:shadow belowSubview:source];
             } completion:^(BOOL finished) {
-                [mask removeFromSuperview];
 
-                // end
-                [transitionContext completeTransition:YES];
+                // 动画3 移动
+                CGRect savedFrame = source.frame;
+                [UIView animateWithDuration:kReverseDuration[2] delay:0 options:0 animations:^{
+                    CGRect bigger = CGRectInset(target.frame, -target.bounds.size.width * 0.04, -target.bounds.size.height * 0.04);
+                    source.frame = bigger;
+                    shadow.frame = bigger;
+                } completion:^(BOOL finished) {
+                    // 动画2 降落
+                    [shadow animateWithDuration:kReverseDuration[3] delay:0 preparation:^{
+                        shadow.reverse = YES;
+                    } completion:nil];
+
+                    [UIView animateWithDuration:kReverseDuration[3] delay:0 options:0 animations:^{
+                        source.frame = target.frame;
+                        shadow.frame = target.frame;
+                    } completion:^(BOOL finished) {
+                        // revert
+                        source.frame = savedFrame;
+                        [shadow removeFromSuperview];
+                    }];
+
+                    // 动画1 淡入
+                    [container insertSubview:to.view belowSubview:hole];
+                    [UIView animateWithDuration:kReverseDuration[4] animations:^{
+                        hole.alpha = 0;
+                    } completion:^(BOOL finished) {
+                        [hole removeFromSuperview];
+                        [container addSubview:to.view];
+                        // end
+                        [transitionContext completeTransition:YES];
+                    }];
+                }];
             }];
-        });
+        }];
     } else {
         NSAssert(NO, @"Set the operation first!");
     }

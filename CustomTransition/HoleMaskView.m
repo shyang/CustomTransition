@@ -31,8 +31,6 @@
             preparation();
         }
 
-        _doneBlock = completion;
-
         CAShapeLayer *layer = [CAShapeLayer layer];
         layer.frame = self.bounds;
         layer.fillRule = kCAFillRuleEvenOdd;
