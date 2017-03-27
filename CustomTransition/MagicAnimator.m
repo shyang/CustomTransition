@@ -11,7 +11,7 @@
 #import "UIViewController+MagicView.h"
 #import "UIView+HoleAnimation.h"
 
-static const CGFloat kTotal = 10;
+static const CGFloat kTotal = 1.5;
 
 static const CGFloat kHoleTime = .26 * kTotal;
 static const CGFloat kShadowTime = .08 * kTotal;
@@ -114,30 +114,32 @@ static const CGFloat kFadeTime = .17 * kTotal;
             [source shadowWithDuration:kShadowTime reverse:NO completion:^(BOOL finished) {
 
                 // 动画3 移动&放大
-                CGRect savedFrame = source.frame;
+                CGRect bigger = CGRectInset(target.frame, -target.bounds.size.width * 0.04, -target.bounds.size.height * 0.04);
                 [UIView animateWithDuration:kMoveTime delay:0 options:0 animations:^{
-                    CGRect bigger = CGRectInset(target.frame, -target.bounds.size.width * 0.04, -target.bounds.size.height * 0.04);
-                    source.frame = bigger;
+                    source.frame = bigger; // 被 pop 掉的 VC 无需 revert，下次进入是重建
                 } completion:^(BOOL finished) {
 
-                    // 动画2 降落&缩小
-                    [source shadowWithDuration:kDownTime reverse:YES completion:nil];
+                    // 缩小淡入后的内容是 toView，必须改为对 target 进行动画
+                    [container addSubview:to.view];
+                    [to.view addSubview:mask];
+                    [to.view bringSubviewToFront:target];
 
-                    [UIView animateWithDuration:kDownTime delay:0 options:0 animations:^{
-                        source.frame = target.frame;
-                    } completion:^(BOOL finished) {
-                        // revert
-                        source.frame = savedFrame;
+                    CGRect savedFrame = target.frame;
+                    target.frame = bigger;
+
+                    // 动画2 降落&缩小
+                    [target shadowWithDuration:kDownTime reverse:YES completion:nil];
+
+                    [UIView animateWithDuration:kDownTime animations:^{
+                        target.frame = savedFrame;
                     }];
 
-                    NSAssert(kFadeTime < kDownTime, @"otherwise change the delay");
                     // 动画1 淡入
-                    [container insertSubview:to.view belowSubview:mask];
-                    [UIView animateWithDuration:kFadeTime delay:kDownTime - kFadeTime options:0 animations:^{
+                    [UIView animateWithDuration:kFadeTime animations:^{
                         mask.alpha = 0;
                     } completion:^(BOOL finished) {
                         [mask removeFromSuperview];
-                        [container addSubview:to.view];
+
                         // end
                         [transitionContext completeTransition:YES];
                     }];
