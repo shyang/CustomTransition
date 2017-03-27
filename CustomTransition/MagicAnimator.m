@@ -7,7 +7,7 @@
 //
 
 #import "MagicAnimator.h"
-#import "ShadowAnimationView.h"
+#import "ShadowView.h"
 #import "UIViewController+MagicView.h"
 #import "HoleMaskView.h"
 
@@ -58,12 +58,12 @@ static const CGFloat kReverseDuration[] = {.28, .08, .49, .19, .19};
         } completion:nil];
 
         // 动画2 升起
-        ShadowAnimationView *shadow = [[ShadowAnimationView alloc] initWithFrame:source.frame];
+        ShadowView *shadow = [[ShadowView alloc] initWithFrame:source.frame];
         [shadow animateWithDuration:kAnimationDuration[1] delay:kAnimationStart[1] preparation:^{
             [from.view insertSubview:shadow belowSubview:source];
         } completion:nil];
 
-        // 动画3 移动
+        // 动画3 移动&放大
         CGRect savedFrame = source.frame;
         [UIView animateWithDuration:kAnimationDuration[2] delay:kAnimationStart[2] options:0 animations:^{
             CGRect bigger = CGRectInset(target.frame, -target.bounds.size.width * 0.04, -target.bounds.size.height * 0.04);
@@ -71,7 +71,7 @@ static const CGFloat kReverseDuration[] = {.28, .08, .49, .19, .19};
             shadow.frame = bigger;
         } completion:nil];
 
-        // 动画4 降落
+        // 动画4 降落&缩小
         [shadow animateWithDuration:kAnimationDuration[3] delay:kAnimationStart[3] preparation:^{
             shadow.reverse = YES;
         } completion:^(BOOL finished) {
@@ -114,7 +114,7 @@ static const CGFloat kReverseDuration[] = {.28, .08, .49, .19, .19};
         }];
 
         // 动画4 升起
-        ShadowAnimationView *shadow = [[ShadowAnimationView alloc] initWithFrame:source.frame];
+        ShadowView *shadow = [[ShadowView alloc] initWithFrame:source.frame];
         [shadow animateWithDuration:kReverseDuration[1] delay:kReverseStart[1] preparation:^{
             [from.view insertSubview:shadow belowSubview:source];
         } completion:nil];
@@ -122,8 +122,9 @@ static const CGFloat kReverseDuration[] = {.28, .08, .49, .19, .19};
         // 动画3 移动
         CGRect savedFrame = source.frame;
         [UIView animateWithDuration:kReverseDuration[2] delay:kReverseStart[2] options:0 animations:^{
-            source.frame = target.frame;
-            shadow.frame = target.frame;
+            CGRect bigger = CGRectInset(target.frame, -target.bounds.size.width * 0.04, -target.bounds.size.height * 0.04);
+            source.frame = bigger;
+            shadow.frame = bigger;
         } completion:nil];
 
         // 动画2 降落
@@ -133,6 +134,10 @@ static const CGFloat kReverseDuration[] = {.28, .08, .49, .19, .19};
             source.frame = savedFrame;
             [shadow removeFromSuperview];
         }];
+        [UIView animateWithDuration:kReverseDuration[3] delay:kReverseStart[3] options:0 animations:^{
+            source.frame = target.frame;
+            shadow.frame = target.frame;
+        } completion:nil];
 
         // 动画1 淡出
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(kReverseStart[4] * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{

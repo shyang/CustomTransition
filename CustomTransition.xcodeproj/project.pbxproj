@@ -10,7 +10,7 @@
 		AD40658D1E84F5FF00D4A28E /* HoleMaskView.m in Sources */ = {isa = PBXBuildFile; fileRef = AD40658C1E84F5FF00D4A28E /* HoleMaskView.m */; };
 		AD4065901E84F70B00D4A28E /* HoleAnimator.m in Sources */ = {isa = PBXBuildFile; fileRef = AD40658F1E84F70B00D4A28E /* HoleAnimator.m */; };
 		AD4920111E824C9000D4A28E /* ShadowViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AD4920101E824C9000D4A28E /* ShadowViewController.m */; };
-		AD4920141E824CD500D4A28E /* ShadowAnimationView.m in Sources */ = {isa = PBXBuildFile; fileRef = AD4920131E824CD500D4A28E /* ShadowAnimationView.m */; };
+		AD4920141E824CD500D4A28E /* ShadowView.m in Sources */ = {isa = PBXBuildFile; fileRef = AD4920131E824CD500D4A28E /* ShadowView.m */; };
 		AD4920171E825C9900D4A28E /* UIViewController+MagicView.m in Sources */ = {isa = PBXBuildFile; fileRef = AD4920161E825C9900D4A28E /* UIViewController+MagicView.m */; };
 		AD49201A1E825E2100D4A28E /* IndexViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AD4920191E825E2100D4A28E /* IndexViewController.m */; };
 		AD6FEF731E84C62C00D4A28E /* HoleMaskViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AD6FEF721E84C62C00D4A28E /* HoleMaskViewController.m */; };
@@ -35,8 +35,8 @@
 		AD40658F1E84F70B00D4A28E /* HoleAnimator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HoleAnimator.m; sourceTree = "<group>"; };
 		AD49200F1E824C9000D4A28E /* ShadowViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShadowViewController.h; sourceTree = "<group>"; };
 		AD4920101E824C9000D4A28E /* ShadowViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShadowViewController.m; sourceTree = "<group>"; };
-		AD4920121E824CD500D4A28E /* ShadowAnimationView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShadowAnimationView.h; sourceTree = "<group>"; };
-		AD4920131E824CD500D4A28E /* ShadowAnimationView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShadowAnimationView.m; sourceTree = "<group>"; };
+		AD4920121E824CD500D4A28E /* ShadowView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShadowView.h; sourceTree = "<group>"; };
+		AD4920131E824CD500D4A28E /* ShadowView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShadowView.m; sourceTree = "<group>"; };
 		AD4920151E825C9900D4A28E /* UIViewController+MagicView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+MagicView.h"; sourceTree = "<group>"; };
 		AD4920161E825C9900D4A28E /* UIViewController+MagicView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+MagicView.m"; sourceTree = "<group>"; };
 		AD4920181E825E2100D4A28E /* IndexViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IndexViewController.h; sourceTree = "<group>"; };
@@ -103,8 +103,8 @@
 				AD40658C1E84F5FF00D4A28E /* HoleMaskView.m */,
 				AD49200F1E824C9000D4A28E /* ShadowViewController.h */,
 				AD4920101E824C9000D4A28E /* ShadowViewController.m */,
-				AD4920121E824CD500D4A28E /* ShadowAnimationView.h */,
-				AD4920131E824CD500D4A28E /* ShadowAnimationView.m */,
+				AD4920121E824CD500D4A28E /* ShadowView.h */,
+				AD4920131E824CD500D4A28E /* ShadowView.m */,
 				ADF7FFCA1E80FBD100D4A28E /* BeginViewController.h */,
 				ADF7FFCB1E80FBD100D4A28E /* BeginViewController.m */,
 				ADF7FFC71E80FB5E00D4A28E /* EndViewController.h */,
@@ -219,7 +219,7 @@
 				AD40658D1E84F5FF00D4A28E /* HoleMaskView.m in Sources */,
 				AD4920171E825C9900D4A28E /* UIViewController+MagicView.m in Sources */,
 				ADF7FFCC1E80FBD100D4A28E /* BeginViewController.m in Sources */,
-				AD4920141E824CD500D4A28E /* ShadowAnimationView.m in Sources */,
+				AD4920141E824CD500D4A28E /* ShadowView.m in Sources */,
 				AD4065901E84F70B00D4A28E /* HoleAnimator.m in Sources */,
 				AD4920111E824C9000D4A28E /* ShadowViewController.m in Sources */,
 				AD49201A1E825E2100D4A28E /* IndexViewController.m in Sources */,

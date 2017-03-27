@@ -7,11 +7,11 @@
 //
 
 #import "ShadowViewController.h"
-#import "ShadowAnimationView.h"
+#import "ShadowView.h"
 
 @interface ShadowViewController () {
     BOOL _on;
-    ShadowAnimationView *_mask;
+    ShadowView *_mask;
 }
 
 @end
@@ -24,7 +24,7 @@
     self.view.backgroundColor = [UIColor whiteColor];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"On" style:UIBarButtonItemStylePlain target:self action:@selector(toggle)];
 
-    _mask = [[ShadowAnimationView alloc] initWithFrame:CGRectMake(100, 160, 120, 160)];
+    _mask = [[ShadowView alloc] initWithFrame:CGRectMake(100, 160, 120, 160)];
     _mask.backgroundColor = [UIColor redColor];
     [self.view addSubview:_mask];
 }

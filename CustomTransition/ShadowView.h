@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ShadowAnimationView : UIView
+@interface ShadowView : UIView
 
 @property (nonatomic) BOOL reverse; // 不是扩张，而是缩小。
 
