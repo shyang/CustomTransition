@@ -71,31 +71,23 @@ static const CGFloat kFadeTime = .17 * kTotal;
         }];
 
         // 动画2 升起
-        ShadowView *shadow = [[ShadowView alloc] initWithFrame:source.frame];
-        [shadow animateWithDuration:kShadowTime delay:0 preparation:^{
-            [from.view insertSubview:shadow belowSubview:source];
-        } completion:^(BOOL finished) {
+        [source shadowWithDuration:kShadowTime reverse:NO completion:^(BOOL finished) {
 
             // 动画3 移动&放大
             CGRect savedFrame = source.frame;
             [UIView animateWithDuration:kMoveTime delay:0 options:0 animations:^{
                 CGRect bigger = CGRectInset(target.frame, -target.bounds.size.width * 0.04, -target.bounds.size.height * 0.04);
                 source.frame = bigger;
-                shadow.frame = bigger;
             } completion:^(BOOL finished) {
 
                 // 动画4 降落&缩小
-                [shadow animateWithDuration:kDownTime delay:0 preparation:^{
-                    shadow.reverse = YES;
-                } completion:nil];
+                [source shadowWithDuration:kDownTime reverse:YES completion:nil];
 
                 [UIView animateWithDuration:kDownTime delay:0 options:0 animations:^{
                     source.frame = target.frame;
-                    shadow.frame = target.frame;
                 } completion:^(BOOL finished) {
                     // revert
                     source.frame = savedFrame;
-                    [shadow removeFromSuperview];
 
                     // 动画5 涟漪
                     [hole animateWithDuration:kHoleTime delay:0 preparation:^{
@@ -126,30 +118,23 @@ static const CGFloat kFadeTime = .17 * kTotal;
         } completion:^(BOOL finished) {
 
             // 动画4 升起
-            ShadowView *shadow = [[ShadowView alloc] initWithFrame:source.frame];
-            [shadow animateWithDuration:kShadowTime delay:0 preparation:^{
-                [from.view insertSubview:shadow belowSubview:source];
-            } completion:^(BOOL finished) {
+            [source shadowWithDuration:kShadowTime reverse:NO completion:^(BOOL finished) {
 
                 // 动画3 移动&放大
                 CGRect savedFrame = source.frame;
                 [UIView animateWithDuration:kMoveTime delay:0 options:0 animations:^{
                     CGRect bigger = CGRectInset(target.frame, -target.bounds.size.width * 0.04, -target.bounds.size.height * 0.04);
                     source.frame = bigger;
-                    shadow.frame = bigger;
                 } completion:^(BOOL finished) {
 
                     // 动画2 降落&缩小
-                    [shadow animateWithDuration:kDownTime delay:0 preparation:^{
-                        shadow.reverse = YES;
-                    } completion:nil];
+                    [source shadowWithDuration:kDownTime reverse:YES completion:nil];
+
                     [UIView animateWithDuration:kDownTime delay:0 options:0 animations:^{
                         source.frame = target.frame;
-                        shadow.frame = target.frame;
                     } completion:^(BOOL finished) {
                         // revert
                         source.frame = savedFrame;
-                        [shadow removeFromSuperview];
                     }];
 
                     NSAssert(kFadeTime < kDownTime, @"otherwise change the delay");

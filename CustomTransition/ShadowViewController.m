@@ -11,7 +11,7 @@
 
 @interface ShadowViewController () {
     BOOL _on;
-    ShadowView *_mask;
+    UIView *_mask;
 }
 
 @end
@@ -24,21 +24,19 @@
     self.view.backgroundColor = [UIColor whiteColor];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"On" style:UIBarButtonItemStylePlain target:self action:@selector(toggle)];
 
-    _mask = [[ShadowView alloc] initWithFrame:CGRectMake(100, 160, 120, 160)];
+    _mask = [[UIView alloc] initWithFrame:CGRectMake(100, 160, 120, 160)];
     _mask.backgroundColor = [UIColor redColor];
     [self.view addSubview:_mask];
 }
 
 - (void)toggle {
     if (_on) {
-        _mask.reverse = YES;
-        [_mask animateWithDuration:1 delay:0 preparation:nil completion:^(BOOL finished) {
+        [_mask shadowWithDuration:1 reverse:YES completion:^(BOOL finished) {
             _on = NO;
             self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"On" style:UIBarButtonItemStylePlain target:self action:@selector(toggle)];
         }];
     } else {
-        _mask.reverse = NO;
-        [_mask animateWithDuration:1 delay:0 preparation:nil completion:^(BOOL finished) {
+        [_mask shadowWithDuration:1 reverse:NO completion:^(BOOL finished) {
             _on = YES;
             self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Off" style:UIBarButtonItemStylePlain target:self action:@selector(toggle)];
         }];

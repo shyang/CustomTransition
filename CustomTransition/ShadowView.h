@@ -8,10 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ShadowView : UIView
+@interface UIView (ShadowAnimation)
 
-@property (nonatomic) BOOL reverse; // 不是扩张，而是缩小。
-
-- (void)animateWithDuration:(NSTimeInterval)duration delay:(NSTimeInterval)delay preparation:(void (^)(void))preparation completion:(void (^)(BOOL finished))completion;
+- (void)shadowWithDuration:(NSTimeInterval)duration reverse:(BOOL)reverse completion:(void (^)(BOOL finished))completion;
 
 @end
