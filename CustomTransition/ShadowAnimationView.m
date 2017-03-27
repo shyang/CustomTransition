@@ -16,44 +16,42 @@
 
 @implementation ShadowAnimationView
 
-- (instancetype)initWithFrame:(CGRect)frame {
-    if (self = [super initWithFrame:frame]) {
-        _duration = .1;
-    }
-    return self;
+- (void)animateWithDuration:(NSTimeInterval)duration delay:(NSTimeInterval)delay preparation:(void (^)(void))preparation completion:(void (^)(BOOL))completion {
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delay * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        _doneBlock = completion;
+        if (preparation) {
+            preparation();
+        }
+
+        self.layer.shadowColor = [UIColor blackColor].CGColor;
+        self.layer.shadowOffset = CGSizeMake(2, 5);
+        self.layer.shadowRadius = 5;
+
+        float fromValue = 0;
+        float toValue = .6;
+
+        CABasicAnimation *anim = [CABasicAnimation animationWithKeyPath:@"shadowOpacity"];
+        if (_reverse) {
+            anim.fromValue = @(toValue);
+            anim.toValue = @(fromValue);
+            self.layer.shadowOpacity = fromValue;
+        } else {
+            anim.fromValue = @(fromValue);
+            anim.toValue = @(toValue);
+            self.layer.shadowOpacity = toValue;
+        }
+        anim.delegate = self;
+        anim.duration = duration;
+        anim.removedOnCompletion = YES;
+        [self.layer addAnimation:anim forKey:@"expand_or_shrink"];
+    });
 }
 
-- (void)startAnimationWithCompletion:(void (^)(BOOL))completion {
-    _doneBlock = completion;
-    
-    self.layer.shadowColor = [UIColor blackColor].CGColor;
-    self.layer.shadowOpacity = .2;
-    self.layer.shadowRadius = 5;
-
-    UIBezierPath *fromPath = [UIBezierPath bezierPathWithRect:self.bounds];
-    UIBezierPath *toPath = [UIBezierPath bezierPathWithRect:CGRectMake(-5, 0, self.bounds.size.width + 10, self.bounds.size.height + 15)];
-
-    CABasicAnimation *anim = [CABasicAnimation animationWithKeyPath:@"shadowPath"];
-    if (_reverse) {
-        anim.fromValue = (__bridge id)toPath.CGPath;
-        anim.toValue = (__bridge id)fromPath.CGPath;
-        self.layer.shadowPath = fromPath.CGPath;
-    } else {
-        anim.fromValue = (__bridge id)fromPath.CGPath;
-        anim.toValue = (__bridge id)toPath.CGPath;
-        self.layer.shadowPath = toPath.CGPath;
-    }
-    anim.delegate = self;
-    anim.duration = _duration;
-
-    [self.layer addAnimation:anim forKey:@"expand_or_shrink"];
-}
-
-- (void)animationDidStop:(CAAnimation *)anim finished:(BOOL)flag {
-    [self.layer removeAllAnimations];
-
+- (void)animationDidStop:(CABasicAnimation *)anim finished:(BOOL)flag {
     if (_doneBlock) {
         _doneBlock(flag);
+        _doneBlock = nil;
     }
 }
+
 @end

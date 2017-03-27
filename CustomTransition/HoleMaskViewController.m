@@ -9,7 +9,10 @@
 #import "HoleMaskViewController.h"
 #import "HoleMaskView.h"
 
-@interface HoleMaskViewController () <CAAnimationDelegate>
+@interface HoleMaskViewController () <CAAnimationDelegate> {
+    BOOL _on;
+    HoleMaskView *_maskView;
+}
 
 @end
 
@@ -22,18 +25,14 @@
     imageView.frame = self.view.bounds;
     [self.view addSubview:imageView];
 
-    HoleMaskView *maskView = [[HoleMaskView alloc] initWithFrame:self.view.bounds];
-    [self.view addSubview:maskView];
+    _maskView = [[HoleMaskView alloc] initWithFrame:self.view.bounds];
+    [self.view addSubview:_maskView];
 
     imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"269.jpg"]];
-    imageView.frame = maskView.bounds;
-    [maskView addSubview:imageView];
+    imageView.frame = _maskView.bounds;
+    [_maskView addSubview:imageView];
 
-    maskView.holeCenter = CGPointMake(100, 200);
-    maskView.holeRadius = 20;
-    maskView.duration = 5;
-    [maskView startAnimationWithCompletion:nil];
-
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"On" style:UIBarButtonItemStylePlain target:self action:@selector(toggle)];
 /*
     UIView *up = [[UIView alloc] initWithFrame:CGRectMake(0, 0, maskView.bounds.size.width, 200)];
     up.backgroundColor = [UIColor redColor];
@@ -46,6 +45,25 @@
     [maskView addSubview:down];
  */
 
+}
+
+- (void)toggle {
+    self.navigationItem.rightBarButtonItem.enabled = NO;
+    if (_on) {
+        _maskView.reverse = YES;
+        [_maskView animateWithDuration:1 delay:0 preparation:nil completion:^(BOOL finished) {
+            _on = NO;
+            self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"On" style:UIBarButtonItemStylePlain target:self action:@selector(toggle)];
+            self.navigationItem.rightBarButtonItem.enabled = YES;
+        }];
+    } else {
+        _maskView.reverse = NO;
+        [_maskView animateWithDuration:1 delay:0 preparation:nil completion:^(BOOL finished) {
+            _on = YES;
+            self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Off" style:UIBarButtonItemStylePlain target:self action:@selector(toggle)];
+            self.navigationItem.rightBarButtonItem.enabled = YES;
+        }];
+    }
 }
 
 @end

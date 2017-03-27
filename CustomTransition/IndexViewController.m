@@ -7,12 +7,8 @@
 //
 
 #import "IndexViewController.h"
-#import "HoleExpandingView.h"
 #import "ShadowAnimationView.h"
-#import "HoleExpandingViewController.h"
-#import "HoleShrinkingViewController.h"
-#import "ShadowOnViewController.h"
-#import "ShadowOffViewController.h"
+#import "ShadowViewController.h"
 #import "BeginViewController.h"
 #import "MagicAnimator.h"
 #import "UIViewController+MagicView.h"
@@ -39,12 +35,9 @@
 
     self.navigationController.delegate = self;
     _items = @[
-        @{@"title": @"圆圈扩张 (hole expanding)", @"next": [HoleExpandingViewController class]},
-        @{@"title": @"圆圈收缩 (hole shrinking)", @"next": [HoleShrinkingViewController class]},
-        @{@"title": @"非纯色遮罩的扩张、收缩", @"next": [HoleMaskViewController class]},
-        @{@"title": @"阴影扩张 (shadow on)", @"next": [ShadowOnViewController class]},
-        @{@"title": @"阴影收缩 (shadow off)", @"next": [ShadowOffViewController class]},
-        @{@"title": @"系统缺省 (system push/pop)", @"next": [BeginViewController class]},
+        @{@"title": @"圆圈扩张、收缩 (hole)", @"next": [HoleMaskViewController class]},
+        @{@"title": @"阴影淡入、淡出 (shadow)", @"next": [ShadowViewController class]},
+        @{@"title": @"缺省动画 (system push/pop)", @"next": [BeginViewController class]},
         @{@"title": @"定制动画1 (customized push/pop)", @"next": [BeginViewController class], @"animator": [HoleAnimator class]},
         @{@"title": @"定制动画2 (customized push/pop)", @"next": [BeginViewController class], @"animator": [MagicAnimator class]},
     ];

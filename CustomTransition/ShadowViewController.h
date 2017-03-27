@@ -1,5 +1,5 @@
 //
-//  ShadowOffViewController.h
+//  ShadowViewController.h
 //  CustomTransition
 //
 //  Created by shaohua on 22/03/2017.
@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ShadowOffViewController : UIViewController
+@interface ShadowViewController : UIViewController
 
 @end
