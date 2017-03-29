@@ -8,6 +8,8 @@ date:   2017-03-28
 
 ![screen records of gewara]({{ site.url }}/assets/transition_gewara.gif)
 
+### 辅助工作
+
 * 使用 QuickTime Player 录制一段动画视频 mov。[可参考](http://osxdaily.com/2016/02/15/howto-record-iphone-screen-mac-quicktime/)
 * 解压为一堆 png 文件，fps 设为 100，故每张对应 0.01 秒，方便记录动画开始与持续时间：`$ ffmpeg -i input.mov -vf fps=100 prefix-%03d.png`
 * 如果要转为 gif，`-r fps` 设得小一些可减小文件体积：`$ ffmpeg -i input.mov -r 10 output.gif`
@@ -23,7 +25,7 @@ date:   2017-03-28
 - (id<UIViewControllerAnimatedTransitioning>)navigationController:(UINavigationController *)navigationController animationControllerForOperation:(UINavigationControllerOperation)operation fromViewController:(UIViewController *)fromVC toViewController:(UIViewController *)toVC;
 ```
 
-Animator 实现了 `UIViewControllerAnimatedTransitioning`
+该 Animator 实现了 `UIViewControllerAnimatedTransitioning` 接口
 
 ```obj-c
 - (NSTimeInterval)transitionDuration:(id<UIViewControllerContextTransitioning>)transitionContext {
