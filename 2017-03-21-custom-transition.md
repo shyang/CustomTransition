@@ -43,11 +43,11 @@ date:   2017-03-28
 
      注1: Animator 需要插入各种遮罩，对被动画的 view 中的层级有假设，若嵌套层次超过一层，需要相应的修改。
      */
-     
+
     UIViewController *from = [transitionContext viewControllerForKey:UITransitionContextFromViewControllerKey];
     UIViewController *to = [transitionContext viewControllerForKey:UITransitionContextToViewControllerKey];
     UIView *container = transitionContext.containerView;
-    
+
     // 动画的实现通过对 from.view, to.view, container 三者操作实现。
     // 在完成后需调用：
     [transitionContext completeTransition:YES];
@@ -78,7 +78,7 @@ layer.fillRule = kCAFillRuleEvenOdd;
 layer.fillColor = [UIColor whiteColor].CGColor; // any color with no transparency
 UIBezierPath *fromPath = [UIBezierPath bezierPathWithOvalInRect:CGRectMake(x - holeRadius, y - holeRadius, holeRadius * 2, holeRadius * 2)];
 UIBezierPath *toPath = [UIBezierPath bezierPathWithOvalInRect:CGRectMake(x - r, y - r, r * 2, r * 2)];
-    
+
 CABasicAnimation *anim = [CABasicAnimation animationWithKeyPath:@"path"];
 anim.fromValue = (__bridge id)fromPath.CGPath;
 anim.toValue = (__bridge id)toPath.CGPath;
@@ -99,3 +99,11 @@ self.layer.mask = layer;
 结构流程与实现1完全相同，动画内容较简单，只用了涟漪消除的动画。
 
 完整代码：[HoleAnimator.m](https://github.com/shyang/CustomTransition/blob/master/CustomTransition/HoleAnimator.m)
+
+## Further reading
+> 2016-08-31
+>
+> * [iOS 7: Custom Transitions](https://possiblemobile.com/2013/09/ios-7-custom-transitions)
+> * [UIViewController-Transitions-Example](https://github.com/TeehanLax/UIViewController-Transitions-Example)
+> * [UIPercentDrivenInteractiveTransition](https://developer.apple.com/reference/uikit/uipercentdriveninteractivetransition)
+> * [UIDynamicAnimator](https://developer.apple.com/reference/uikit/uidynamicanimator)
