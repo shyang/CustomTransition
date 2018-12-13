@@ -6,7 +6,7 @@ date:   2017-03-28
 
 参考实现：
 
-![screen records of gewara]({{ site.url }}/assets/transition_gewara.gif)
+![screen records of gewara](assets/transition_gewara.gif)
 
 ### 辅助工作
 
@@ -17,7 +17,7 @@ date:   2017-03-28
 
 ### 转场动画实现之一
 
-![screen records of gewara]({{ site.url }}/assets/transition_magic.gif)
+![screen records of gewara](assets/transition_magic.gif)
 
 `UINavigationController` 有缺省的转场动画，可通过实现 `UINavigationControllerDelegate` 返回一个 Animator 对象来定制动画：
 
@@ -54,7 +54,7 @@ date:   2017-03-28
 }
 ```
 
-以上，参考完整代码：[MagicAnimator.m](https://github.com/shyang/CustomTransition/blob/master/CustomTransition/MagicAnimator.m)
+以上，参考完整代码：[MagicAnimator.m](CustomTransition/MagicAnimator.m)
 
 #### PS1 阴影的动画
 ```
@@ -68,7 +68,7 @@ self.layer.shadowOpacity = toValue; // 设置为动画终止时的值
 [self.layer addAnimation:anim forKey:@"expand_or_shrink"];
 ```
 
-完整代码：[UIView+ShadowAnimation.m](https://github.com/shyang/CustomTransition/blob/master/CustomTransition/UIView%2BShadowAnimation.m)
+完整代码：[UIView+ShadowAnimation.m](CustomTransition/UIView+ShadowAnimation.m)
 
 #### PS2 涟漪消除的动画
 ```
@@ -90,15 +90,15 @@ layer.path = toPath.CGPath; // 设置为动画终止时的值
 self.layer.mask = layer;
 ```
 
-完整代码：[UIView+HoleAnimation.m](https://github.com/shyang/CustomTransition/blob/master/CustomTransition/UIView%2BHoleAnimation.m)
+完整代码：[UIView+HoleAnimation.m](CustomTransition/UIView+HoleAnimation.m)
 
 ### 转场动画实现之二
 
-![screen records of gewara]({{ site.url }}/assets/transition_hole.gif)
+![screen records of gewara](assets/transition_hole.gif)
 
 结构流程与实现1完全相同，动画内容较简单，只用了涟漪消除的动画。
 
-完整代码：[HoleAnimator.m](https://github.com/shyang/CustomTransition/blob/master/CustomTransition/HoleAnimator.m)
+完整代码：[HoleAnimator.m](CustomTransition/HoleAnimator.m)
 
 ## Further reading
 > 2016-08-31
